@@ -32,4 +32,4 @@ jobs:
         app-name: 'elbeta-web'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_9451d7b3df034acbb8157fcccf6f1208 }}
-        package: ./dist/
+        package: ./dist/Front/
