@@ -23,6 +23,7 @@ jobs:
     - name: npm install, build, and test
       run: |
         npm install
+        npm i -g @angular/cli
         npm run build --if-present
 
     - name: 'Deploy to Azure Web App'
@@ -31,4 +32,4 @@ jobs:
         app-name: 'elbeta-web'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_9451d7b3df034acbb8157fcccf6f1208 }}
-        package: .
+        package: ./dist/
