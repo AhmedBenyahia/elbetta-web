@@ -1,6 +1,4 @@
-![Deployment](https://github.com/SlaySayto/elbetta-web/workflows/Deployment/badge.svg)
-
-![Build](https://github.com/SlaySayto/elbetta-web/workflows/Node.js%20CI/badge.svg)
+![Deployment](https://github.com/SlaySayto/elbetta-web/workflows/Deployment/badge.svg) ![Build](https://github.com/SlaySayto/elbetta-web/workflows/Node.js%20CI/badge.svg)
 
 
 # Front
