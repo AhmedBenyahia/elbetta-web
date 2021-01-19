@@ -54,6 +54,55 @@
             <div class="form-group">
               <div class="input-group input-group-alternative mb-3">
                 <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-bold-right"></i></span>
+                </div>
+                <input [(ngModel)]="user.firstname" formControlName="firstname" class="form-control" placeholder="First name" type="text">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-bold-right"></i></span>
+                </div>
+                <input [(ngModel)]="user.lastname" formControlName="lastname" class="form-control" placeholder="Last name" type="text">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-mobile-button"></i></span>
+                </div>
+                <input [(ngModel)]="user.telephoneNumber" formControlName="phone" class="form-control" placeholder="Phone number" type="text">
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <div class="input-group input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-mobile-button"></i></span>
+                </div>
+                <input class="form-control datepicker" placeholder="Select date" name="dp1" [(ngModel)]="date" formControlName="birthday"
+                       ngbDatepicker #d1="ngbDatepicker" (dateSelect)="saveDate(date)" (click)="d1.toggle()" (select)="mama($event)" type="text"
+                       [dayTemplate]="t" autocomplete="on"
+                       (focus)="focusDate=true"
+                       (blur)="focusDate=false"/>
+                <ng-template #t let-date let-focused="focused">
+               <span class="custom-day"
+                     [class.text-white]="isActive(date)"
+                     [class.btn-light]="isActive(date)"
+                     [class.bg-primary]="isActive(date)">
+                 {{ date.day }}
+               </span>
+                </ng-template>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group input-group-alternative mb-3">
+                <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                 </div>
                 <input  [(ngModel)]="user.email" formControlName="email" class="form-control" placeholder="Email" type="email">

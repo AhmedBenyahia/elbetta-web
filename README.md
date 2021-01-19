@@ -6,6 +6,7 @@
 + Replace console.log with a logger
 + User Jwt instead of basic authentication
 + Add global error handling
++ Add data validation in frontend & backend
 
 ## Development server
 

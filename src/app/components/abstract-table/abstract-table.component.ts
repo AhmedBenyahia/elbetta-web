@@ -1,4 +1,5 @@
 import {Component, Injectable, OnInit} from '@angular/core';
+// @ts-ignore
 import {PaginationModel} from '../../_models/pagination.model';
 
 @Injectable()
@@ -7,6 +8,7 @@ export abstract class AbstractTableComponent implements OnInit {
   itemPagination = new PaginationModel();
   dateFormat = 'dd/MM/yyyy';
   currencyCode = 'DTN';
+  // tslint:disable-next-line:max-line-length
   cols: { field: string, header: string, date: boolean, currency: boolean, hasSubField?: boolean, link?: boolean, subfield?: string, img?: boolean, recursive?: boolean, groupRow?: boolean}[];
 
 
@@ -20,6 +22,7 @@ export abstract class AbstractTableComponent implements OnInit {
 
   protected constructor() { }
 
+  // tslint:disable-next-line:contextual-lifecycle
   ngOnInit() {
     this.itemPagination = new PaginationModel();
   }
