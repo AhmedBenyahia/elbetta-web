@@ -4,11 +4,11 @@ import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {UtilityFunction} from '../../helpers/UtilityFunction';
 import {Store} from '../../models/store.model';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup} from '@angular/forms';
 import {User} from '../../models/user.mode';
-import {switchMap} from 'rxjs/operators';
+import {first, switchMap} from 'rxjs/operators';
 import {Product} from '../../models/product.model';
 
 @Component({
@@ -41,7 +41,7 @@ export class StoreComponent implements OnInit {
   price: FormControl;
   stock: FormControl;
 
-  closeResult: any;
+  closeResult$: Subject<any> = new Subject<any>();
 
   constructor(private _storeService: StoreService,
               private authService: AuthService,
@@ -116,34 +116,55 @@ export class StoreComponent implements OnInit {
     this.newProduct = new Product();
   }
 
-  openModal(content, type, modalDimension, target, store?: Store) {
-    switch (target) {
-      case 'product':
+  openModal(content, type, modalDimension, task, param?: Store | Product | any) {
+    switch (task) {
+      case 'create-product':
         this.initProductForm();
-        this.newProduct.store = store;
+        this.newProduct.store = param;
         break;
-      case 'store':
+      case 'create-store':
         this.initStoreForm();
+        break;
+        case 'edit-store':
+        this.initStoreForm();
+        this.newStore = param;
+        break;
+      case 'edit-product':
+        this.initProductForm();
+        this.newProduct = param;
+        break;
+        case 'delete-product':
+        this.newProduct = param;
+        this.closeResult$.pipe(first()).subscribe((result: string) => {
+          if (result.includes('Delete')) {
+            this.deleteProduct(param);
+          }
+        });
         break;
     }
     if (modalDimension === 'sm' && type === 'modal_mini') {
       this.modalService.open(content, {windowClass: 'modal-mini', size: 'sm', centered: true}).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
+        this.closeResult$.next(`Closed with: ${result}`);
       }, (reason) => {
-        this.closeResult = `Dismissed ${UtilityFunction.getDismissReason(reason)}`;
+        this.closeResult$.next(`Dismissed ${UtilityFunction.getDismissReason(reason)}`);
       });
     } else if (modalDimension === '' && type === 'Notification') {
       this.modalService.open(content, {windowClass: 'modal-danger', centered: true}).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
+        this.closeResult$.next(`Closed with: ${result}`);
       }, (reason) => {
-        this.closeResult = `Dismissed ${UtilityFunction.getDismissReason(reason)}`;
+        this.closeResult$.next(`Dismissed ${UtilityFunction.getDismissReason(reason)}`);
       });
     } else {
       this.modalService.open(content, {centered: true}).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
+        this.closeResult$.next(`Closed with: ${result}`);
       }, (reason) => {
-        this.closeResult = `Dismissed ${UtilityFunction.getDismissReason(reason)}`;
+        this.closeResult$.next(`Dismissed ${UtilityFunction.getDismissReason(reason)}`);
       });
     }
+  }
+
+  async deleteProduct(product: Product) {
+    await this._storeService.deleteProduct(product).toPromise();
+    this.stores$ = this._storeService.getUserStores(this.user);
   }
 }

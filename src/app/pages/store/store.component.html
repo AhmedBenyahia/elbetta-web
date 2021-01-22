@@ -99,11 +99,17 @@
       <div class="card shadow">
         <div class="card-header border-0">
           <h3 class="mb-0">Product List</h3>
+          <button (click)="openModal(storeModal, 'modal_mini', 'lg', 'edit-store', stores[selectedStoreIndex])"
+                  style="float: right"
+                  class="btn btn-sm btn-info"
+                  type="button">
+            Edit Store
+          </button>
           <button class="btn btn-sm btn-primary" style="float: right" type="button"
-                  (click)="openModal(createStoreModal, 'modal_mini', 'sm', 'store')">
+                  (click)="openModal(storeModal, 'modal_mini', 'sm', 'create-store')">
             Create Store
           </button>
-          <div ngbDropdown placement="right-top">
+          <div ngbDropdown>
             <a class="btn btn-sm text-light" ngbDropdownToggle>
               <ng-container *ngIf="selectedStoreIndex + 1">
                 {{stores[selectedStoreIndex].title}} <i class="ni ni-bold-down"></i>
@@ -126,20 +132,21 @@
               <th scope="col">Status</th>
               <th scope="col">Bought By</th>
               <th scope="col">In Stock</th>
-              <th scope="col" >
-                <button (click)="openModal(createProductModal, 'modal_mini', 'lg', 'product', stores[selectedStoreIndex])"
-                        class="btn btn-icon btn-sm rounded-circle btn-info"
-                        type="button"
-                        placement="top"
-                        ngbTooltip="Add product to store"
-                        container="body">
-                  <span class="btn-inner--icon" ><i class="ni ni-fat-add"></i></span>
+              <th scope="col">
+                <button
+                  (click)="openModal(productModal, 'modal_mini', 'lg', 'create-product', stores[selectedStoreIndex])"
+                  class="btn btn-icon btn-sm rounded-circle btn-info"
+                  type="button"
+                  placement="top"
+                  ngbTooltip="Add product to store"
+                  container="body">
+                  <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
                 </button>
               </th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let product of stores[selectedStoreIndex].products ">
+            <tr *ngFor="let product of stores[selectedStoreIndex].products$ | async">
               <th scope="row">
                 <div class="media align-items-center">
                   <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
@@ -195,8 +202,9 @@
                     <i class="fas fa-ellipsis-v"></i>
                   </a>
                   <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
-                    <a class="dropdown-item">Edit</a>
-                    <a class="dropdown-item text-danger">Delete</a>
+                    <a class="dropdown-item"
+                       (click)="openModal(productModal, 'modal_mini', 'lg', 'edit-product', product)">Edit</a>
+                    <a class="dropdown-item text-danger" (click)="openModal(deleteNotification, 'Notification', '', 'delete-product', product)" >Delete</a>
                   </div>
                 </div>
               </td>
@@ -235,157 +243,189 @@
 </div>
 
 
-<ng-template #createStoreModal let-c="close" let-d="dismiss">
-    <form [formGroup]="storeForm" (ngSubmit)="createStore()">
-      <div class="modal-content">
-        <div class="modal-body p-0">
-          <div class="card bg-secondary shadow border-0">
-            <div class="card-header bg-white pb-5">
-              <div class="text-muted text-center mb-3">
-                <small>What's the title of your new store</small>
-              </div>
-              <div class="form-group mb-3">
-                <div class="input-group input-group-alternative">
-                  <div class="btn-wrapper text-center">
-                    <input [(ngModel)]="newStore.title" formControlName="title" type="text" id="input-title"
-                           class="form-control form-control-alternative" placeholder="Store Title">
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group mb-3">
-                <div class="input-group input-group-alternative">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="ni ni-tag"></i></span>
-                  </div>
-                  <input [(ngModel)]="newStore.category" formControlName="category" type="text" id="input-category"
-                         class="form-control form-control-alternative" placeholder="Category">
+<ng-template #storeModal let-c="close" let-d="dismiss">
+  <form [formGroup]="storeForm" (ngSubmit)="createStore()">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <div class="card bg-secondary shadow border-0">
+          <div class="card-header bg-white pb-5">
+            <div class="text-muted text-center mb-3">
+              <small>What's the title of your new store</small>
+            </div>
+            <div class="form-group mb-3">
+              <div class="input-group input-group-alternative">
+                <div class="btn-wrapper text-center">
+                  <input [(ngModel)]="newStore.title" formControlName="title" type="text" id="input-title"
+                         class="form-control form-control-alternative" placeholder="Store Title">
                 </div>
               </div>
             </div>
-            <div class="card-body px-lg-5 py-lg-5">
-              <div class="text-center text-muted mb-4">
-                <small>Tell us more about your store</small>
-              </div>
-              <div class="form-group">
-                <div class="input-group input-group-alternative">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="ni ni-align-center"></i></span>
-                  </div>
-                  <textarea [(ngModel)]="newStore.description" formControlName="description" rows="3" id="input-description"
-                            class="form-control form-control-alternative"
-                            placeholder="Some description here.."></textarea>
-                </div>
-              </div>
-              <div class="text-center">
-                <button type="submit" class="btn btn-primary my-4">Create Store</button>
-              </div>
 
+            <div class="form-group mb-3">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-tag"></i></span>
+                </div>
+                <input [(ngModel)]="newStore.category" formControlName="category" type="text" id="input-category"
+                       class="form-control form-control-alternative" placeholder="Category">
+              </div>
             </div>
+          </div>
+          <div class="card-body px-lg-5 py-lg-5">
+            <div class="text-center text-muted mb-4">
+              <small>Tell us more about your store</small>
+            </div>
+            <div class="form-group">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-align-center"></i></span>
+                </div>
+                <textarea [(ngModel)]="newStore.description" formControlName="description" rows="3"
+                          id="input-description"
+                          class="form-control form-control-alternative"
+                          placeholder="Some description here.."></textarea>
+              </div>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary my-4">
+                <ng-container *ngIf="newStore.id">Update Product</ng-container>
+                <ng-container *ngIf="!newStore.id">Create Product</ng-container>
+              </button>
+            </div>
+
           </div>
         </div>
       </div>
-    </form>
-  </ng-template>
+    </div>
+  </form>
 
-<ng-template #createProductModal let-c="close" let-d="dismiss">
-    <form [formGroup]="productForm" (ngSubmit)="createProduct()">
-      <div class="modal-content">
-        <div class="modal-body p-0">
-          <div class="card bg-secondary shadow border-0">
-            <div class="card-header bg-white pb-5">
-              <div class="text-muted text-center mb-3">
-                <small>Fill below the information of the new product</small>
-              </div>
-              <div class="form-group mb-3">
-                <div class="input-group input-group-alternative">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="ni ni-caps-small"></i></span>
-                  </div>
-                  <div class="btn-wrapper text-center">
-                    <input [(ngModel)]="newProduct.title" formControlName="title" type="text" id="product-title"
-                           class="form-control form-control-alternative" placeholder="Product Title">
-                  </div>
+</ng-template>
+
+<ng-template #productModal let-c="close" let-d="dismiss">
+  <form [formGroup]="productForm" (ngSubmit)="createProduct()">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <div class="card bg-secondary shadow border-0">
+          <div class="card-header bg-white pb-5">
+            <div class="text-muted text-center mb-3">
+              <small>Fill below the information of the new product</small>
+            </div>
+            <div class="form-group mb-3">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-caps-small"></i></span>
                 </div>
-              </div>
-
-              <div class="form-group mb-3">
-                <div class="input-group input-group-alternative">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
-                  </div>
-                  <div class="btn-wrapper text-center">
-                    <input [(ngModel)]="newProduct.price" formControlName="price" type="number" id="product-price"
-                           class="form-control form-control-alternative" placeholder="Price in TND">
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group mb-3">
-                <div class="input-group input-group-alternative">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="ni ni-box-2"></i></span>
-                  </div>
-                  <div class="btn-wrapper text-center">
-                    <input [(ngModel)]="newProduct.model" formControlName="model" type="text" id="product-model"
-                           class="form-control form-control-alternative" placeholder="Model">
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group mb-3">
-                <div class="input-group input-group-alternative">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="ni ni-delivery-fast"></i></span>
-                  </div>
-                  <div class="btn-wrapper text-center">
-                    <input [(ngModel)]="newProduct.currentStock" formControlName="stock" type="number" id="product-stock"
-                           class="form-control form-control-alternative" placeholder="Product in stock">
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group mb-3">
-                <div class="input-group input-group-alternative">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="ni ni-tag"></i></span>
-                  </div>
-                  <input [(ngModel)]="newProduct.category" formControlName="category" type="text" id="product-category"
-                         class="form-control form-control-alternative" placeholder="Category">
+                <div class="btn-wrapper text-center">
+                  <input [(ngModel)]="newProduct.title" formControlName="title" type="text" id="product-title"
+                         class="form-control form-control-alternative" placeholder="Product Title">
                 </div>
               </div>
             </div>
-            <div class="card-body px-lg-5 py-lg-5">
-              <div class="text-center text-muted mb-4">
-                <small>Tell us more about the product</small>
-              </div>
-              <div class="form-group">
-                <div class="input-group input-group-alternative">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="ni ni-align-center"></i></span>
-                  </div>
-                  <textarea [(ngModel)]="newProduct.description" formControlName="description" rows="3" id="product-description"
-                            class="form-control form-control-alternative"
-                            placeholder="Some description here.."></textarea>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="input-group input-group-alternative">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="ni ni-app"></i></span>
-                  </div>
-                  <textarea [(ngModel)]="newProduct.specification" formControlName="specification" rows="3" id="product-specification"
-                            class="form-control form-control-alternative"
-                            placeholder="Some specification here.."></textarea>
-                </div>
-              </div>
-              <div class="text-center">
-                <button type="submit" class="btn btn-primary my-4">Create Product</button>
-              </div>
 
+            <div class="form-group mb-3">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
+                </div>
+                <div class="btn-wrapper text-center">
+                  <input [(ngModel)]="newProduct.price" formControlName="price" type="number" id="product-price"
+                         class="form-control form-control-alternative" placeholder="Price in TND">
+                </div>
+              </div>
             </div>
+
+            <div class="form-group mb-3">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-box-2"></i></span>
+                </div>
+                <div class="btn-wrapper text-center">
+                  <input [(ngModel)]="newProduct.model" formControlName="model" type="text" id="product-model"
+                         class="form-control form-control-alternative" placeholder="Model">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-delivery-fast"></i></span>
+                </div>
+                <div class="btn-wrapper text-center">
+                  <input [(ngModel)]="newProduct.currentStock" formControlName="stock" type="number" id="product-stock"
+                         class="form-control form-control-alternative" placeholder="Product in stock">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-tag"></i></span>
+                </div>
+                <input [(ngModel)]="newProduct.category" formControlName="category" type="text" id="product-category"
+                       class="form-control form-control-alternative" placeholder="Category">
+              </div>
+            </div>
+          </div>
+          <div class="card-body px-lg-5 py-lg-5">
+            <div class="text-center text-muted mb-4">
+              <small>Tell us more about the product</small>
+            </div>
+            <div class="form-group">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-align-center"></i></span>
+                </div>
+                <textarea [(ngModel)]="newProduct.description" formControlName="description" rows="3"
+                          id="product-description"
+                          class="form-control form-control-alternative"
+                          placeholder="Some description here.."></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-app"></i></span>
+                </div>
+                <textarea [(ngModel)]="newProduct.specification" formControlName="specification" rows="3"
+                          id="product-specification"
+                          class="form-control form-control-alternative"
+                          placeholder="Some specification here.."></textarea>
+              </div>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary my-4">
+                <ng-container *ngIf="newProduct.id">Update Product</ng-container>
+                <ng-container *ngIf="!newProduct.id">Create Product</ng-container>
+              </button>
+            </div>
+
           </div>
         </div>
       </div>
-    </form>
-  </ng-template>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #deleteNotification let-c="close" let-d="dismiss">
+  <div class="modal-content bg-gradient-danger">
+    <div class="modal-header">
+      <h6 class="modal-title" id="modal-title-notification">Your attention is required</h6>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="py-3 text-center">
+        <i class="ni ni-bell-55 ni-3x"></i>
+        <h4 class="heading mt-4">Are you sure you want to precede with the delete operation !!</h4>
+        <p>All data will be lost</p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-white"(click)="c('Delete')" >Delete</button>
+      <button type="button" class="btn btn-link text-white ml-auto" data-dismiss="modal" (click)="c('Close click')">Cancel</button>
+    </div>
+  </div>
+</ng-template>
