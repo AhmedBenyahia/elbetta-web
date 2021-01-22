@@ -5,6 +5,7 @@ import {Routes, RouterModule} from '@angular/router';
 
 import {AdminLayoutComponent} from './layouts/admin-layout/admin-layout.component';
 import {AuthLayoutComponent} from './layouts/auth-layout/auth-layout.component';
+import {ProductCatalogComponent} from './layouts/product-catalog/product-catalog/product-catalog.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,16 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () => import('./layouts/admin-layout/admin-layout.module').then(mod => mod.AdminLayoutModule)
+      }
+    ]
+  },
+  {
+    path: '',
+    component: ProductCatalogComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./layouts/product-catalog/product-catalog.module').then(mod => mod.ProductCatalogModule)
       }
     ]
   }, {

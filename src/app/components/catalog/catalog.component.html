@@ -1,0 +1,99 @@
+<div class="header pb-5 pt-5 pt-lg-5 d-flex align-items-center"
+     style="min-height: 300px; background-image: url(assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-8"></span>
+  <!-- Header container -->
+  <div class="container-fluid d-flex align-items-center">
+    <div class="row mx-auto text-center">
+      <div class="col-lg-12 col-md-10">
+        <h1 class="display-2 text-white">Hello to {{store?.title}}</h1>
+        <p class="text-white mt-0 mb-5">Browser our product list and buy product online !!</p>
+        <!--        <a href="#!" class="btn btn-info">Edit profile</a>-->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col-lg-3">
+        <!-- Tags -->
+        <div class="card">
+          <!-- Card header -->
+          <div class="card-header">
+            <h3 class="mb-0">Tags</h3>
+          </div>
+          <!-- Card body -->
+          <div class="card-body">
+            <form>
+              <input type="text" class="form-control" value="Bucharest, Cluj, Iasi, Timisoara, Piatra Neamt" data-toggle="tags"/>
+            </form>
+          </div>
+        </div>
+        <!-- slider      -->
+        <div class="card">
+        <!-- Card header -->
+        <div class="card-header">
+          <h3 class="mb-0">Sliders</h3>
+        </div>
+        <!-- Card body -->
+        <div class="card-body">
+          <form>
+            <div class="col-lg-3 col-sm-6 mt-4 mt-md-0">
+              <div class="mb-3">
+                <small class="text-uppercase font-weight-bold">Sliders</small>
+              </div>
+              <!-- Simple slider -->
+              <div class="input-slider-container">
+                <div id="input-slider" class="input-slider" ></div>
+              </div>
+              <!-- Range slider -->
+              <div class="mt-5">
+                <!-- Range slider container -->
+                <div id="input-slider-range"></div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-9">
+      <div class="section list-products bg-secondary skew-separator skew-top">
+        <div class="container">
+          <div class="col-md-8">
+            <h2 class="title">You may also like </h2>
+          </div>
+          <div class="row">
+            <div *ngFor="let i of [1,2,3,4,5,6,7,8,9]" class="col-lg-3 col-md-6">
+              <div class="card card-product">
+                <div class="card-image">
+                  <a href="">
+                    <img class="img rounded" src="assets/img/brand/shirt.png">
+                  </a>
+                </div>
+                <div class="card-body">
+                  <h6 class="category text-warning">Trending</h6>
+                  <h4 class="card-title">
+                    <a href="javascript:;" class="card-link">Gucci</a>
+                  </h4>
+                  <div class="card-description opacity-8 mt-2">
+                    Dolce &amp; Gabbana's 'Greta' tote has been crafted in Italy from hard-wearing red textured-leather.
+                  </div>
+                  <div class="card-footer">
+                    <div class="price-container">
+                      <span class="price">€1,459</span>
+                    </div>
+                    <button class="btn btn-simple btn-warning btn-icon-only btn-sm btn-round pull-right" rel="tooltip"
+                            title="" style="float: right" data-original-title="Add to wishlist">
+                      <i class="ni ni-favourite-28"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
