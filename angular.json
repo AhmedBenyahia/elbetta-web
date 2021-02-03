@@ -31,7 +31,7 @@
             "styles": [
               "src/styles.scss",
               "src/assets/scss/argon.scss",
-              "src/assets/css/argon-design-system.css"
+              "src/assets/css/argon-design-system.scss"
             ],
             "scripts": [
               "node_modules/chart.js/dist/Chart.min.js",

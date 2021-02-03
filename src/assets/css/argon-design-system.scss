@@ -23234,3 +23234,103 @@ pre > code.highlight {
     bottom: 0; }
 
 /*# sourceMappingURL=argon-design-system.css.map */
+.tag-input.regular-theme .tag {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 66%;
+  color: #fff;
+  border-radius: .25rem;
+  transition: all .15s ease;
+  margin: .125rem;
+  padding: .625rem .625rem .5rem;
+  line-height: 1.5;
+  background: #172b4d !important;
+  text-transform: uppercase;
+  transition: all 170ms linear;
+}
+
+.tag {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  letter-spacing: .05rem;
+  color: #444;
+  border-radius: 16px;
+  transition: .3s;
+  margin: .1rem .3rem .1rem 0;
+  padding: .08rem .45rem;
+  height: 32px;
+  line-height: 34px;
+  background: #efefef;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: hidden;
+  outline: 0;
+  cursor: pointer;
+  position: relative;
+}
+
+.tag-input-text-input {
+  display: inline;
+  vertical-align: middle;
+  border: none;
+  padding: 0 .5rem;
+  height: 38px;
+  font-size: 1em;
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+
+.tag-input-text-input {
+  display: inline;
+  vertical-align: middle;
+  border: none;
+  padding: 0 .5rem;
+  height: 38px;
+  font-size: 1em;
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+
+
+.tag-input-text-input:focus {
+  outline: 0;
+}
+
+.tag-input.regular-theme .tag .delete-icon path {
+  fill: #fff;
+}
+
+.tag-input.regular-theme .tag .delete-icon svg {
+  vertical-align: middle;
+  height: 13px;
+  opacity: 0;
+  position: absolute;
+  right: 5px;
+  top: 11px;
+}
+
+.tag:not(:focus):not(.tag--editing):not(:active):not(.readonly):hover {
+  background: #e2e2e2;
+  color: initial;
+  box-shadow: 0 2px 3px 1px #d4d1d1;
+}
+.tag-input.regular-theme .tag:hover {
+  padding-right: 25px;
+}
+
+.tag-input.regular-theme .tag:not(:focus):not(.tag--editing):not(:active):not(.readonly):hover {
+  background: #172b4d;
+  color: #fff;
+}
+
+.tag-input.regular-theme .tag:hover svg {
+  opacity: 1;
+}
+
+.visited-btn {
+  color: #172b4d
+}

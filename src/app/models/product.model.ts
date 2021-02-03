@@ -29,4 +29,6 @@ export class Product {
   store: Store;
 
   status: string;
+
+  clicked = false;
 }

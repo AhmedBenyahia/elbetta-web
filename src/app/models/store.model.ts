@@ -5,6 +5,11 @@ import {Observable} from 'rxjs';
 
 export class Store {
 
+  constructor(title?: string) {
+    this.title = title;
+  }
+
+
   id: number;
 
   title: string;

@@ -4,6 +4,7 @@ import {environment} from '../../environments/environment';
 import {Store} from '../models/store.model';
 import {Product} from '../models/product.model';
 import {map} from 'rxjs/operators';
+import {ReplaySubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,19 @@ export class StoreService {
 
   // Shared variable
   private _userStores;
+  private shoppingCart$ = new ReplaySubject<Product[]>();
+  private _shoppingCart: Product[] = [];
 
   constructor(private http: HttpClient) {
+  }
+
+
+  get shoppingCart(): Product[] {
+    return this._shoppingCart;
+  }
+
+  set shoppingCart(value: Product[]) {
+    this._shoppingCart = value;
   }
 
   get userStores() {
@@ -32,6 +44,11 @@ export class StoreService {
       });
       return stores;
     }));
+  }
+
+  getStoreProducts(store: Store) {
+    const headers = new HttpHeaders({Authorization: localStorage.getItem('auth_header')});
+    return this.http.post<Product[]>(environment.elbetaApiUrl + `/product/store-product/`, store, {headers});
   }
 
   createStore(newStore: Store) {
