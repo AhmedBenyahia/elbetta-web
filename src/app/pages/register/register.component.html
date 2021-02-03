@@ -38,31 +38,86 @@
           <div class="text-center text-muted mb-4">
             <small>Or sign up with credentials</small>
           </div>
-          <form role="form">
+          <form [formGroup]="signingForm" (ngSubmit)="signing()" role="form">
+
+<!--            TODO: add birthday and phone num-->
+
             <div class="form-group">
               <div class="input-group input-group-alternative mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                 </div>
-                <input class="form-control" placeholder="Name" type="text">
+                <input [(ngModel)]="user.username" formControlName="username" class="form-control" placeholder="Username" type="text">
               </div>
             </div>
+
+            <div class="form-group">
+              <div class="input-group input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-bold-right"></i></span>
+                </div>
+                <input [(ngModel)]="user.firstname" formControlName="firstname" class="form-control" placeholder="First name" type="text">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-bold-right"></i></span>
+                </div>
+                <input [(ngModel)]="user.lastname" formControlName="lastname" class="form-control" placeholder="Last name" type="text">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-mobile-button"></i></span>
+                </div>
+                <input [(ngModel)]="user.telephoneNumber" formControlName="phone" class="form-control" placeholder="Phone number" type="text">
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <div class="input-group input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-mobile-button"></i></span>
+                </div>
+                <input class="form-control datepicker" placeholder="Select date" name="dp1" [(ngModel)]="date" formControlName="birthday"
+                       ngbDatepicker #d1="ngbDatepicker" (dateSelect)="saveDate(date)" (click)="d1.toggle()" (select)="mama($event)" type="text"
+                       [dayTemplate]="t" autocomplete="on"
+                       (focus)="focusDate=true"
+                       (blur)="focusDate=false"/>
+                <ng-template #t let-date let-focused="focused">
+               <span class="custom-day"
+                     [class.text-white]="isActive(date)"
+                     [class.btn-light]="isActive(date)"
+                     [class.bg-primary]="isActive(date)">
+                 {{ date.day }}
+               </span>
+                </ng-template>
+              </div>
+            </div>
+
             <div class="form-group">
               <div class="input-group input-group-alternative mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                 </div>
-                <input class="form-control" placeholder="Email" type="email">
+                <input  [(ngModel)]="user.email" formControlName="email" class="form-control" placeholder="Email" type="email">
               </div>
             </div>
+
             <div class="form-group">
               <div class="input-group input-group-alternative">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                 </div>
-                <input class="form-control" placeholder="Password" type="password">
+                <input [(ngModel)]="user.password" formControlName="password" class="form-control" placeholder="Password" type="password">
               </div>
             </div>
+
             <div class="text-muted font-italic"><small>password strength: <span class="text-success font-weight-700">strong</span></small></div>
             <div class="row my-4">
               <div class="col-12">
@@ -74,9 +129,11 @@
                 </div>
               </div>
             </div>
+
             <div class="text-center">
-              <button type="button" class="btn btn-primary mt-4">Create account</button>
+              <button type="submit" class="btn btn-primary mt-4">Create account</button>
             </div>
+
           </form>
         </div>
       </div>

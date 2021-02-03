@@ -8,10 +8,11 @@ import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbDatepickerModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app.routing';
-import { ComponentsModule } from './components/components.module';
+import {SharedModule} from './shared/shared.module';
+import {ProductCatalogComponent} from './layouts/product-catalog/product-catalog/product-catalog.component';
 
 
 @NgModule({
@@ -19,15 +20,17 @@ import { ComponentsModule } from './components/components.module';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    ComponentsModule,
+    SharedModule,
     NgbModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbDatepickerModule
   ],
   declarations: [
+    ProductCatalogComponent,
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
