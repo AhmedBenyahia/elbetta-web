@@ -5,9 +5,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CatalogComponent } from './catalog/catalog.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import { CheckoutComponent } from './checkout/checkout.component';
 
 @NgModule({
   imports: [
@@ -20,8 +18,6 @@ import { CheckoutComponent } from './checkout/checkout.component';
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-    CatalogComponent,
-    CheckoutComponent
   ],
   exports: [
     FooterComponent,
