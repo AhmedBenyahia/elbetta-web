@@ -59,6 +59,7 @@
     "no-non-null-assertion": true,
     "no-redundant-jsdoc": true,
     "no-switch-case-fall-through": true,
+    "no-unused-expression": false,
     "no-var-requires": false,
     "object-literal-key-quotes": [
       true,
@@ -83,7 +84,7 @@
       }
     },
     "typedef": [
-      true,
+      false,
       "call-signature"
     ],
     "typedef-whitespace": {
@@ -108,6 +109,7 @@
       "options": [
         "ban-keywords",
         "check-format",
+        "allow-leading-underscore",
         "allow-pascal-case"
       ]
     },

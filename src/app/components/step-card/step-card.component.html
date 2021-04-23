@@ -1,0 +1,13 @@
+<div id="stepsStatus">
+    <div  class="status-item home">
+        <i class="fas fa-home icon"></i>
+    </div>
+    <ng-container *ngFor="let step of steps; let i = index">
+        <div @items class="status-item item-step{{i + 1}}" (click)="deleteSteps(i)">
+            <i class="fas {{step.icon}} icon"></i>
+            <span class="d-none d-md-inline-block">
+            <small> Recherche </small> {{step.title}}
+        </span>
+        </div>
+    </ng-container>
+</div>
