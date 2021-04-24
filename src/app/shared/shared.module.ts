@@ -10,7 +10,7 @@ import {ComponentsModule} from '../components/components.module';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    ComponentsModule
+    ComponentsModule,
   ],
   exports: [
     ReactiveFormsModule,
