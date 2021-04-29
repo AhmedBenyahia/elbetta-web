@@ -30,7 +30,7 @@ import {SharedModule} from './shared/shared.module';
     AdminLayoutComponent,
     AuthLayoutComponent,
   ],
-  providers: [],
+  providers: [History],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

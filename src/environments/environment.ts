@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  elbetaApiUrl: 'http://localhost:5002'
+  apiUrl: 'http://localhost:8081'
 };
 
 /*

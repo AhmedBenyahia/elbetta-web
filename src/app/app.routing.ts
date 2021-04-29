@@ -6,11 +6,12 @@ import {Routes, RouterModule} from '@angular/router';
 import {AdminLayoutComponent} from './layouts/admin-layout/admin-layout.component';
 import {AuthLayoutComponent} from './layouts/auth-layout/auth-layout.component';
 import {FormComponent} from './layouts/form/form.component';
+import {HomeComponent} from './layouts/form/home/home.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'user-profile',
+    redirectTo: 'form',
     pathMatch: 'full',
   }, {
     path: '',
@@ -41,7 +42,7 @@ const routes: Routes = [
     ]
   }, {
     path: '**',
-    redirectTo: 'dashboard'
+    redirectTo: 'form'
   }
 ];
 

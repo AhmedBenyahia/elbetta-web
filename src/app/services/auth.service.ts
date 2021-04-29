@@ -27,7 +27,7 @@ export class AuthService {
   login(username, password): Observable<any> {
     const headers = new HttpHeaders({Authorization: 'Basic ' + btoa(username + ':' + password)});
     localStorage.setItem('auth_header', 'Basic ' + btoa(username + ':' + password));
-    return this.http.get(environment.elbetaApiUrl + `/auth/login`, {headers}).pipe(map(user => {
+    return this.http.get(environment.apiUrl + `/api/auth/login`, {headers}).pipe(map(user => {
       this._user = user;
       return user;
     }));
@@ -36,7 +36,7 @@ export class AuthService {
   async refreshUserInfo() {
     const headers = new HttpHeaders({Authorization: localStorage.getItem('auth_header')});
     if (headers) {
-      this._user = await this.http.get<User>(environment.elbetaApiUrl + `/auth/login`, {headers}).toPromise();
+      this._user = await this.http.get<User>(environment.apiUrl + `/api/auth/login`, {headers}).toPromise();
     } else {
       throw throwError('Invalid login Information, Please login !!');
     }
@@ -44,12 +44,12 @@ export class AuthService {
 
   logout(): Observable<any> {
     localStorage.clear();
-    return this.http.get(environment.elbetaApiUrl + `/logout`);
+    return this.http.get(environment.apiUrl + `/api/auth/logout`);
   }
 
   createUserAccount(user): Observable<any> {
     const headers = new HttpHeaders({Authorization: localStorage.getItem('auth_header')});
-    return this.http.post(environment.elbetaApiUrl + `/api/user/create`, user, {headers});
+    return this.http.post(environment.apiUrl + `/api/user/create`, user, {headers});
   }
 
 }

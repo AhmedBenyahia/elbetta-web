@@ -18,14 +18,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   // User Details
   user: { username, password };
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService,
+              private router: Router) {
     this.user = {username: null, password: null};
   }
 
   ngOnInit() {
 
     if (this.authService.user) {
-      this.router.navigate(['/user-profile']);
+      this.router.navigate(['/form']);
     }
 
     this.createFormControls();
@@ -35,10 +36,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  async login() {
-    await this.authService.login(this.user.username, this.user.password).toPromise();
-    console.log('User Auth Succeed');
-    this.router.navigate(['/user-profile']);
+  login() {
+    this.authService.login(this.user.username, this.user.password).subscribe(value => {
+      console.log('User Auth Succeed');
+      this.router.navigate(['/form']);
+    });
   }
 
   /** create form controle */

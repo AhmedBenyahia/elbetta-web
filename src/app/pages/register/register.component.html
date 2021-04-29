@@ -21,23 +21,7 @@
   <div class="row justify-content-center">
     <div class="col-lg-6 col-md-8">
       <div class="card bg-secondary shadow border-0">
-        <div class="card-header bg-transparent pb-5">
-          <div class="text-muted text-center mt-2 mb-4"><small>Sign up with</small></div>
-          <div class="text-center">
-            <a href="javascript:void(0)" class="btn btn-neutral btn-icon mr-4">
-              <span class="btn-inner--icon"><img src="assets/img/icons/common/github.svg"></span>
-              <span class="btn-inner--text">Github</span>
-            </a>
-            <a href="javascript:void(0)" class="btn btn-neutral btn-icon">
-              <span class="btn-inner--icon"><img src="assets/img/icons/common/google.svg"></span>
-              <span class="btn-inner--text">Google</span>
-            </a>
-          </div>
-        </div>
         <div class="card-body px-lg-5 py-lg-5">
-          <div class="text-center text-muted mb-4">
-            <small>Or sign up with credentials</small>
-          </div>
           <form [formGroup]="signingForm" (ngSubmit)="signing()" role="form">
 
 <!--            TODO: add birthday and phone num-->
@@ -47,7 +31,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                 </div>
-                <input [(ngModel)]="user.username" formControlName="username" class="form-control" placeholder="Username" type="text">
+                <input [(ngModel)]="user.login" formControlName="username" class="form-control" placeholder="Username" type="text">
               </div>
             </div>
 
@@ -74,7 +58,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-mobile-button"></i></span>
                 </div>
-                <input [(ngModel)]="user.telephoneNumber" formControlName="phone" class="form-control" placeholder="Phone number" type="text">
+                <input [(ngModel)]="user.tel" formControlName="phone" class="form-control" placeholder="Phone number" type="text">
               </div>
             </div>
 
@@ -84,8 +68,10 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-mobile-button"></i></span>
                 </div>
-                <input class="form-control datepicker" placeholder="Select date" name="dp1" [(ngModel)]="date" formControlName="birthday"
-                       ngbDatepicker #d1="ngbDatepicker" (dateSelect)="saveDate(date)" (click)="d1.toggle()" (select)="mama($event)" type="text"
+                <input class="form-control datepicker" placeholder="Select date" name="dp1"
+                       [(ngModel)]="date" formControlName="birthday"
+                       ngbDatepicker #d1="ngbDatepicker" (dateSelect)="saveDate(date)"
+                       (click)="d1.toggle()" (select)="mama($event)" type="text"
                        [dayTemplate]="t" autocomplete="on"
                        (focus)="focusDate=true"
                        (blur)="focusDate=false"/>
@@ -105,7 +91,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                 </div>
-                <input  [(ngModel)]="user.email" formControlName="email" class="form-control" placeholder="Email" type="email">
+                <input  [(ngModel)]="user.mail" formControlName="mail" class="form-control" placeholder="Email" type="email">
               </div>
             </div>
 

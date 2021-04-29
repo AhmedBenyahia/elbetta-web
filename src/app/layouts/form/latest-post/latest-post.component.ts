@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {FormService} from '../../../services/form.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-latest-post',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LatestPostComponent implements OnInit {
 
-  constructor() { }
+  latestPub$: Observable<any>;
+  constructor(private _formService: FormService) { }
 
   ngOnInit(): void {
+    this.latestPub$ = this._formService.getLatestPub();
   }
 
 }

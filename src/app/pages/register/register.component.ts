@@ -13,23 +13,23 @@ export class RegisterComponent implements OnInit {
 
   // Form att
   signingForm: FormGroup;
-  username: FormControl;
+  login: FormControl;
   password: FormControl;
   firstname: FormControl;
-  phone: FormControl;
+  tel: FormControl;
   lastname: FormControl;
-  email: FormControl;
+  mail: FormControl;
   birthday: FormControl;
 
   // User Details
-  user: { username, password, email, firstname, lastname, telephoneNumber, dateOfBirth? };
+  user: { login, password, mail, firstname, lastname, tel, birthday? };
 
   // Date att
   date: NgbDate;
   focusDate: boolean;
 
   constructor(private authService: AuthService) {
-    this.user = {username: null, password: null, email: null, firstname: null, lastname: null, telephoneNumber: null};
+    this.user = {login: null, password: null, mail: null, firstname: null, lastname: null, tel: null};
   }
 
   ngOnInit() {
@@ -39,24 +39,24 @@ export class RegisterComponent implements OnInit {
 
   /** create form controle */
   createFormControls() {
-    this.username = new FormControl();
+    this.login = new FormControl();
     this.password = new FormControl();
-    this.phone = new FormControl();
+    this.tel = new FormControl();
     this.firstname = new FormControl();
     this.lastname = new FormControl();
-    this.email = new FormControl();
+    this.mail = new FormControl();
     this.birthday = new FormControl();
   }
 
   /** create form validators */
   createForm() {
     this.signingForm = new FormGroup({
-      username: this.username,
+      username: this.login,
       password: this.password,
       firstname: this.firstname,
       phone: this.firstname,
       lastname: this.lastname,
-      email: this.email,
+      mail: this.mail,
       birthday: this.birthday,
     });
   }
@@ -72,7 +72,7 @@ export class RegisterComponent implements OnInit {
 
 
   saveDate(date: NgbDate) {
-    this.user.dateOfBirth = new Date(date.year, date.month, date.day);
+    this.user.birthday = new Date(date.year, date.month, date.day);
   }
 
   mama($event: Event) {
