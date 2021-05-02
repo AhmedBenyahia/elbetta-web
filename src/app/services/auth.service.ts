@@ -14,6 +14,7 @@ export class AuthService {
   private _user;
 
   get user() {
+    if (!this._user) this.refreshUserInfo();
     return this._user;
   }
 

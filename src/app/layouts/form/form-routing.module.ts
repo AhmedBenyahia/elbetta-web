@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'post-content',          component: PostComponent },
   { path: 'suggestion',          component: SuggestionsComponent },
   { path: 'posts',          component: PostsListComponent },
-]
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
