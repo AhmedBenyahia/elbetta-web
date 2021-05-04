@@ -7,6 +7,13 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {CommentModel} from '../../../models/comment';
 import {AuthService} from '../../../services/auth.service';
 import {RateCom} from '../../../models/rateCom';
+import {Store} from '../../../models/store.model';
+import {Product} from '../../../models/product.model';
+import {first} from 'rxjs/operators';
+import {UtilityFunction} from '../../../helpers/UtilityFunction';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Subject} from 'rxjs';
+import {User} from '../../../models/user.mode';
 
 @Component({
   selector: 'app-post',
@@ -23,8 +30,14 @@ export class PostComponent implements OnInit {
   formAdd: FormGroup;
   content: FormControl;
   newPost: PublicationModel;
+  closeResult$: Subject<any> = new Subject<any>();
+  selectedComment: CommentModel;
+  editCommentForm: FormGroup;
+  user = new User();
+
 
   constructor(private  router: ActivatedRoute,
+              private modalService: NgbModal,
               private formService: FormService, private authService: AuthService) {
   }
 
@@ -57,13 +70,14 @@ export class PostComponent implements OnInit {
     this.comm.publication.id = this.post.id;
     this.comm.user = this.authService.user;
     this.newPost = new PublicationModel();
+    this.user = await this.authService.refreshUserInfo();
   }
 
-  async like(comment: CommentModel, rate: RateCom) {
+  async like(comment: CommentModel, rate: string) {
     if (comment.dislike) {
-      // TODO: API dislike
+      console.log('dislike');
     } else {
-      comment = await this.formService.rateComment(comment, 'LIKE').toPromise();
+      comment = await this.formService.rateComment(comment, rate, this.authService.user.id).toPromise();
     }
   }
 
@@ -72,7 +86,7 @@ export class PostComponent implements OnInit {
     const defaultE = 'far fa-thumbs-up';
     const love = 'fab fa-gratipay';
     comment.dislike = false;
-    const userReaction = Object.keys(comment.ratingCom).filter(c => c === this.authService.user.id);
+    const userReaction = Object.keys(comment.ratingCom).filter(c => c === this.authService.user.id.toString());
     if (!userReaction.length) { return defaultE; }
     comment.dislike = true;
     switch (comment.ratingCom[userReaction[0]]){
@@ -85,5 +99,48 @@ export class PostComponent implements OnInit {
   }
   async deletePost(id: number) {
     await this.formService.deletePost(id).toPromise();
+  }
+
+  openModal(content, type, modalDimension, task, param?: CommentModel | any) {
+    switch (task) {
+      case 'edit-comment':
+        this.editCommentForm = new FormGroup({
+          updateComment: new FormControl()
+        });
+        this.selectedComment = param;
+        break;
+      case 'delete-comment':
+        this.closeResult$.pipe(first()).subscribe(async (result: string) => {
+          if (result.includes('Delete')) {
+            await this.formService.deleteComment(param.id).toPromise();
+            this.commentPost = this.commentPost.filter(c => c.id !== param.id);
+          }
+        });
+        break;
+    }
+    if (modalDimension === 'sm' && type === 'modal_mini') {
+      this.modalService.open(content, {windowClass: 'modal-mini', size: 'sm', centered: true}).result.then((result) => {
+        this.closeResult$.next(`Closed with: ${result}`);
+      }, (reason) => {
+        this.closeResult$.next(`Dismissed ${UtilityFunction.getDismissReason(reason)}`);
+      });
+    } else if (modalDimension === '' && type === 'Notification') {
+      this.modalService.open(content, {windowClass: 'modal-danger', centered: true}).result.then((result) => {
+        this.closeResult$.next(`Closed with: ${result}`);
+      }, (reason) => {
+        this.closeResult$.next(`Dismissed ${UtilityFunction.getDismissReason(reason)}`);
+      });
+    } else {
+      this.modalService.open(content, {centered: true}).result.then((result) => {
+        this.closeResult$.next(`Closed with: ${result}`);
+      }, (reason) => {
+        this.closeResult$.next(`Dismissed ${UtilityFunction.getDismissReason(reason)}`);
+      });
+    }
+  }
+
+  async editComment() {
+    this.selectedComment = await this.formService.updateComment(this.selectedComment).toPromise();
+    this.modalService.dismissAll();
   }
 }

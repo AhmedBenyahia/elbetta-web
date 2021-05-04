@@ -37,10 +37,10 @@ export class FormService {
     const headers = new HttpHeaders({Authorization: localStorage.getItem('auth_header')});
     return this.http.post<CommentModel>(environment.apiUrl + '/api/comment/create/', comm, {headers});
   }
-  rateComment(comment: CommentModel, rate: string) {
+  rateComment(comment: CommentModel, rate: string, userId: number) {
     const headers = new HttpHeaders({Authorization: localStorage.getItem('auth_header')});
     return this.http.get<CommentModel>(
-      `${environment.apiUrl}/api/comment/rate/${comment.id}/${comment.user.id}/${rate}`, {headers});
+      `${environment.apiUrl}/api/comment/rate/${comment.id}/${userId}/${rate}`, {headers});
   }
   getAllPosts(){
     const headers = new HttpHeaders({Authorization: localStorage.getItem('auth_header')});
@@ -50,7 +50,7 @@ export class FormService {
     const headers = new HttpHeaders({Authorization: localStorage.getItem('auth_header')});
     return this.http.delete<CommentModel>(environment.apiUrl + '/api/comment/delete/' + id, {headers});
   }
-  UpdateComment(comm: CommentModel){
+  updateComment(comm: CommentModel){
   const headers = new HttpHeaders({Authorization: localStorage.getItem('auth_header')});
   return this.http.put<CommentModel>(environment.apiUrl + '/api/comment/update/' , comm, {headers});
   }

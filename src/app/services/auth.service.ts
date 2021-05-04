@@ -11,10 +11,10 @@ import {User} from '../models/user.mode';
 })
 export class AuthService {
 
-  private _user;
+  private _user: User;
 
   get user() {
-    if (!this._user) this.refreshUserInfo();
+    if (!this._user) { this.refreshUserInfo(); }
     return this._user;
   }
 
@@ -23,12 +23,13 @@ export class AuthService {
   }
 
   constructor(private http: HttpClient) {
+    this._user = new User();
   }
 
   login(username, password): Observable<any> {
     const headers = new HttpHeaders({Authorization: 'Basic ' + btoa(username + ':' + password)});
     localStorage.setItem('auth_header', 'Basic ' + btoa(username + ':' + password));
-    return this.http.get(environment.apiUrl + `/api/auth/login`, {headers}).pipe(map(user => {
+    return this.http.get<User>(environment.apiUrl + `/api/auth/login`, {headers}).pipe(map(user => {
       this._user = user;
       return user;
     }));
@@ -41,6 +42,7 @@ export class AuthService {
     } else {
       throw throwError('Invalid login Information, Please login !!');
     }
+    return this.user;
   }
 
   logout(): Observable<any> {

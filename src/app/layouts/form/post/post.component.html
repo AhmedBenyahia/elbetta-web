@@ -1,71 +1,104 @@
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 mx-auto">
-        <div class="card">
-          <div class="card-header"><h5 class="h3 mb-0">{{post?.title}}</h5></div>
-          <div class="card-header d-flex align-items-center">
-            <div class="d-flex align-items-center"><a><img src="assets/img/theme/team-1-800x800.jpg"
-                                                                               class="avatar"></a>
-              <div class="mx-3"><a class="text-dark font-weight-600 text-sm">{{post?.user?.login}}</a><small
-                class="d-block text-muted"> {{post?.datePublication| date :'short'}}</small></div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="card">
+        <div class="card-header"><h5 class="h3 mb-0">{{post?.title}}</h5></div>
+        <div class="card-header d-flex align-items-center">
+          <div class="d-flex align-items-center"><a><img src="assets/img/theme/team-1-800x800.jpg"
+                                                         class="avatar"></a>
+            <div class="mx-3"><a class="text-dark font-weight-600 text-sm">{{post?.user?.login}}</a><small
+              class="d-block text-muted"> {{post?.datePublication| date :'short'}}</small></div>
+          </div>
+        </div>
+        <div class="card-body"><p class="mb-4">{{post?.content}}</p><img alt="Image placeholder"
+                                                                         src="assets/img/theme/team-1-800x800.jpg"
+                                                                         class=" img-fluid rounded">
+          <div class="row align-items-center my-3 pb-3 border-bottom">
+            <div class="col-sm-6">
+              <div class="icon-actions">
+                <td>
+                  <ng-container *ngFor="let i of rate"><i class="fas fa-star"></i></ng-container>
+                  <ng-container *ngFor="let i of rateVide"><i class="far fa-star"></i></ng-container>
+                </td>
+
+                <td class="col-auto"><a><i class="ni ni-chat-round"></i><span
+                  class="text-muted"> {{commentPost?.length}} </span></a></td>
+              </div>
+
+            </div>
+            <div class="col-sm-6 d-none d-sm-block">
             </div>
           </div>
-          <div class="card-body"><p class="mb-4">{{post?.content}}</p><img alt="Image placeholder" src="assets/img/theme/team-1-800x800.jpg"
-                                           class=" img-fluid rounded">
-            <div class="row align-items-center my-3 pb-3 border-bottom">
-              <div class="col-sm-6">
-                <div class="icon-actions"> <td><ng-container *ngFor="let i of rate" ><i class="fas fa-star"></i></ng-container>
-                  <ng-container *ngFor="let i of rateVide" ><i class="far fa-star"></i></ng-container></td>
-
-                  <td class="col-auto"><a><i class="ni ni-chat-round"></i><span
-                  class="text-muted"> {{commentPost?.length}} </span></a></td></div>
-
-              </div>
-              <div class="col-sm-6 d-none d-sm-block">
-              </div>
-            </div>
-            <div class="mb-1">
-              <div *ngFor="let c of commentPost"  class="media media-comment">
-                <img alt="Image placeholder" src="assets/img/theme/team-1-800x800.jpg"
-                                                    class="media-comment-avatar rounded-circle">
-                <div class="media-body">
-                  <div class="media-comment-text">
-                    <h6 class="h5 mt-0">{{c?.user?.login}}</h6> <small>{{c.creationDate| date :'short'}} </small>
-                   <!-- <a>
-                      <td class="text-right">
-                        <div ngbDropdown placement="bottom-right" container="body">
-                          <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
-                            <i class="fas fa-ellipsis-v"></i>
-                          </a>
-                          <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
-                            <a class="dropdown-item"
-                               (click)="openModal(commentModal, 'modal_mini', 'lg', 'edit-comment', comment)">Edit</a>
-                            <a class="dropdown-item text-danger" (click)="openModal(deleteNotification, 'Notification', '', 'delete-comment', product)" >Delete</a>
+          <div class="mb-1">
+            <div *ngFor="let c of commentPost" class="media media-comment">
+              <img alt="Image placeholder" src="assets/img/theme/team-1-800x800.jpg"
+                   class="media-comment-avatar rounded-circle">
+              <div class="media-body">
+                <div class="media-comment-text">
+                  <div class="row">
+                    <div class="col-sm-8">
+                      <h6 class="h5 mt-0">{{c?.user?.login}}</h6> <small>{{c.creationDate| date :'short'}} </small>
+                    </div>
+                    <div class="col-sm-4">
+                      <a>
+                        <div *ngIf="user?.id === c?.user?.id" class="text-right">
+                          <div ngbDropdown placement="bottom-right" container="body">
+                            <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
+                              <i class="fas fa-ellipsis-v"></i>
+                            </a>
+                            <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                              <a class="dropdown-item"
+                                 (click)="openModal(editModal, 'modal_mini', 'lg', 'edit-comment', c)">Edit</a>
+                              <a class="dropdown-item text-danger"
+                                 (click)="openModal(deleteModal, 'Notification', '', 'delete-comment', c)">Delete</a>
+                            </div>
                           </div>
                         </div>
-                      </td>
-                      </a>-->
-
-                    <p class="text-sm lh-160"> {{c.content}} </p>
-                    <div class="icon-actions">
-                      <a class="like active">
-                        <i [class]="getEmoit(c)" (click)="like(c, 0)"></i>
-                        <span class="text-muted"> {{object.keys(c?.ratingCom).length}} </span>
                       </a>
                     </div>
                   </div>
+
+                  <p class="text-sm lh-160"> {{c.content}} </p>
+                  <div class="icon-actions">
+                    <a class="like active">
+                      <div ngbDropdown #reactDropDown='ngbDropdown' placement="bottom-left" container="body">
+                        <a class=""
+                           ngbDropdownToggle
+                           (mouseenter)="$event.stopPropagation(); reactDropDown.open()">
+                          <i [class]="getEmoit(c)"></i>
+                          <span class="text-muted"> {{object.keys(c?.ratingCom).length}} </span>
+                        </a>
+                        <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow"
+                             (mouseleave)="$event.stopPropagation(); reactDropDown.close()">
+                          <div class="row">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-3" (click)="like(c, 'LIKE');reactDropDown.close()">
+                              <a class="btn btn-icon-only"> <i class="far fa-thumbs-up"></i></a>
+                            </div>
+                            <div class="col-sm-3" (click)="like(c, 'LOVE');reactDropDown.close()">
+                              <a class="btn btn-icon-only"> <i class="fab fa-gratipay"></i></a>
+                            </div>
+                            <div class="col-sm-3" (click)="like(c, 'LAUGH');reactDropDown.close()">
+                              <a class="btn btn-icon-only"> <i class="far fa-grin-squint-tears"></i></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
                 </div>
               </div>
-              <div class="media align-items-center mt-5"><img alt="Image placeholder"
-                                                              src="assets/img/theme/team-1-800x800.jpg"
-                                                              class="avatar avatar-lg rounded-circle mb-4">
-                <div class="media-body">
-                  <form  [formGroup]="formAdd" novalidate="" class="ng-untouched ng-pristine ng-valid">
+            </div>
+            <div class="media align-items-center mt-5"><img alt="Image placeholder"
+                                                            src="assets/img/theme/team-1-800x800.jpg"
+                                                            class="avatar avatar-lg rounded-circle mb-4">
+              <div class="media-body">
+                <form [formGroup]="formAdd" novalidate="" class="ng-untouched ng-pristine ng-valid">
                     <textarea (keyup.enter)="addComment()"
-                    [(ngModel)]="comm.content" formControlName="content" class="form-control" placeholder="Write your comment" rows="1" class="form-control"></textarea>
+                              [(ngModel)]="comm.content" formControlName="content" class="form-control"
+                              placeholder="Write your comment" rows="1" class="form-control"></textarea>
 
-                  </form>
-                </div>
+                </form>
               </div>
             </div>
           </div>
@@ -73,3 +106,57 @@
       </div>
     </div>
   </div>
+</div>
+
+
+<ng-template #editModal let-c="close" let-d="dismiss">
+  <form [formGroup]="editCommentForm" (ngSubmit)="editComment()">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <div class="card bg-secondary shadow border-0">
+          <div class="card-header bg-white pb-5">
+            <div class="text-muted text-center mb-3">
+              <small>Update Comment</small>
+            </div>
+            <div class="form-group mb-3">
+              <div class="input-group input-group-alternative">
+                <div class="btn-wrapper text-center">
+                  <input [(ngModel)]="selectedComment.content" formControlName="updateComment" type="text"
+                         id="input-title"
+                         class="form-control form-control-alternative" placeholder="Store Title">
+                </div>
+              </div>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary my-4">Update Comment</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #deleteModal let-c="close" let-d="dismiss">
+  <div class="modal-content bg-gradient-danger">
+    <div class="modal-header">
+      <h6 class="modal-title" id="modal-title-notification">Your attention is required</h6>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="py-3 text-center">
+        <i class="ni ni-bell-55 ni-3x"></i>
+        <h4 class="heading mt-4">Are you sure you want to precede with the delete operation !!</h4>
+        <p>All data will be lost</p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-white" (click)="c('Delete')">Delete</button>
+      <button type="button" class="btn btn-link text-white ml-auto" data-dismiss="modal" (click)="c('Close click')">
+        Cancel
+      </button>
+    </div>
+  </div>
+</ng-template>

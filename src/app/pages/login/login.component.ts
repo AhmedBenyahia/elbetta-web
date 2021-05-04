@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    if (this.authService.user) {
+    if (this.authService.user.id) {
       this.router.navigate(['/form']);
     }
 
