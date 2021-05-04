@@ -1,0 +1,16 @@
+import { Injectable } from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {environment} from '../../environments/environment';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CategoriesService {
+
+  constructor(private http: HttpClient) { }
+
+  getCategories() {
+    const headers = new HttpHeaders({Authorization: localStorage.getItem('auth_header')});
+    return this.http.get(environment.apiUrl + '/api/categoriepublication', {headers});
+  }
+}

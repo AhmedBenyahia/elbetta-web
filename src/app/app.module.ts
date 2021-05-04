@@ -12,7 +12,6 @@ import {NgbDatepickerModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app.routing';
 import {SharedModule} from './shared/shared.module';
-import {ProductCatalogComponent} from './layouts/product-catalog/product-catalog/product-catalog.component';
 
 
 @NgModule({
@@ -27,12 +26,11 @@ import {ProductCatalogComponent} from './layouts/product-catalog/product-catalog
     NgbDatepickerModule
   ],
   declarations: [
-    ProductCatalogComponent,
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
   ],
-  providers: [],
+  providers: [History],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

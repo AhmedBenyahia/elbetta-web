@@ -1,0 +1,84 @@
+<!-- Navbar default -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-default">
+  <div class="container">
+    <a class="navbar-brand" href="javascript:void(0)">Default Color</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-default" aria-controls="navbar-default" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar-default">
+      <div class="navbar-collapse-header">
+        <div class="row">
+          <div class="col-6 collapse-brand">
+            <a href="javascript:void(0)">
+              <img src="./assets/img/brand/blue.png">
+            </a>
+          </div>
+          <div class="col-6 collapse-close">
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-default" aria-controls="navbar-default" aria-expanded="false" aria-label="Toggle navigation">
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <ul class="navbar-nav ml-lg-auto">
+        <li class="nav-item">
+          <a class="nav-link nav-link-icon" href="javascript:void(0)">
+            <i class="ni ni-favourite-28"></i>
+            <span class="nav-link-inner--text d-lg-none">Discover</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-icon" href="javascript:void(0)">
+            <i class="ni ni-notification-70"></i>
+            <span class="nav-link-inner--text d-lg-none">Profile</span>
+          </a>
+        </li>
+        <li class="nav-item" ngbDropdown placement="bottom-right">
+          <a class="nav-link nav-link-icon no-caret" id="navbar-default_dropdown_1" ngbDropdownToggle>
+            <i class="ni ni-settings-gear-65"></i>
+            <span class="nav-link-inner--text d-lg-none">Settings</span>
+          </a>
+          <div class="dropdown-menu-right" aria-labelledby="navbar-default_dropdown_1" ngbDropdownMenu>
+            <a class="dropdown-item" href="javascript:void(0)">Action</a>
+            <a class="dropdown-item" href="javascript:void(0)">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="javascript:void(0)">Something else here</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!--<div class="page-header header-filter">-->
+<!--  <div class="page-header-image" style="background-image: url('assets/img/theme/team-1-800x800.jpg');"></div>-->
+<!--  <div class="container">-->
+<!--    <div class="row">-->
+<!--      <div class="col-lg-10 mx-auto text-center"><h2 class="display-2 text-white">Check our latest post!</h2></div>-->
+<!--    </div>-->
+<!--    <div class="row">-->
+<!--      <div class="floating-box bg-default">-->
+<!--        <div class="box text-center">-->
+<!--          <div class="icon icon-shape bg-primary icon-xl rounded-circle text-white"><i class="ni ni-spaceship"></i>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <blockquote class="blockquote text-center mt-4"><p class="mb-0 text-white">posted 13 Sept 2019</p>-->
+<!--          <div class="blockquote-footer text-white"> Someone famous in <cite title="Source Title"> Source-->
+<!--            Title </cite></div>-->
+<!--        </blockquote>-->
+<!--        <h2 class="lead text-white p-5"> As a result of growing greenhouse gas emissions, climate models predict that-->
+<!--          our planet will get significantly warmer, that ecosystems will be changed or destroyed, and that enormous-->
+<!--          human and economic costs will be incurred. These scenarios aren't guaranteed, but avoiding them will be very-->
+<!--          hard. We're trying to take small steps to mitigate our impact. </h2></div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--<app-latest-post></app-latest-post>-->
+<!--<app-categories></app-categories>-->
+<!--<app-posts-list></app-posts-list>-->
+<!--<app-suggestions></app-suggestions>-->
+<!--<app-post></app-post>-->
+
+<router-outlet></router-outlet>

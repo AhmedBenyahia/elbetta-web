@@ -5,12 +5,13 @@ import {Routes, RouterModule} from '@angular/router';
 
 import {AdminLayoutComponent} from './layouts/admin-layout/admin-layout.component';
 import {AuthLayoutComponent} from './layouts/auth-layout/auth-layout.component';
-import {ProductCatalogComponent} from './layouts/product-catalog/product-catalog/product-catalog.component';
+import {FormComponent} from './layouts/form/form.component';
+import {HomeComponent} from './layouts/form/home/home.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'user-profile',
+    redirectTo: 'form',
     pathMatch: 'full',
   }, {
     path: '',
@@ -19,16 +20,6 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () => import('./layouts/admin-layout/admin-layout.module').then(mod => mod.AdminLayoutModule)
-      }
-    ]
-  },
-  {
-    path: '',
-    component: ProductCatalogComponent,
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('./layouts/product-catalog/product-catalog.module').then(mod => mod.ProductCatalogModule)
       }
     ]
   }, {
@@ -41,8 +32,17 @@ const routes: Routes = [
       }
     ]
   }, {
+    path: '',
+    component: FormComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./layouts/form/form.module').then(mod => mod.FormModule)
+      }
+    ]
+  }, {
     path: '**',
-    redirectTo: 'dashboard'
+    redirectTo: 'form'
   }
 ];
 

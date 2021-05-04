@@ -1,0 +1,26 @@
+<section class="blogs-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 mx-auto"><h2 class="title mb-5">You may also like:</h2>
+        <div class="row">
+          <div *ngFor="let post of suggestions" class="col-lg-4 col-md-6">
+            <div class="card card-blog card-plain">
+              <div class="card-image shadow"><a href="javascript:;"><img src="assets/img/theme/team-1-800x800.jpg"
+                                                                         class="img rounded"></a></div>
+              <div class="card-body">
+                <h4 [routerLink]="['/post-content',{post: post}]" class="card-title"><a (click)="goToPost(post)">{{post.title}}</a></h4>
+                <p class="card-description"> {{post.content}} </p>
+                <div class="card-footer">
+                  <div class="author"><img alt="..." src="assets/img/theme/team-1-800x800.jpg" class="avatar img-raised"><span> {{post.user.login}}</span>
+                  </div>
+                  <div class="stats stats-right opacity-8"><i class="ni ni-watch-time"></i>{{getReadTime(post.content)}}m Read Time </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

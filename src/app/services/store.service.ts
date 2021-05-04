@@ -38,7 +38,7 @@ export class StoreService {
 
   getUserStores({id}) {
     const headers = new HttpHeaders({Authorization: localStorage.getItem('auth_header')});
-    return this.http.get<Store[]>(environment.elbetaApiUrl + `/store/get-my-stores/${id}`, {headers}).pipe(map((stores) => {
+    return this.http.get<Store[]>(environment.apiUrl + `/store/get-my-stores/${id}`, {headers}).pipe(map((stores) => {
       stores.forEach(store => {
         store.products$ = this.getStoreProduct(store);
       });
@@ -48,26 +48,26 @@ export class StoreService {
 
   getStoreProducts(store: Store) {
     const headers = new HttpHeaders({Authorization: localStorage.getItem('auth_header')});
-    return this.http.post<Product[]>(environment.elbetaApiUrl + `/product/store-product/`, store, {headers});
+    return this.http.post<Product[]>(environment.apiUrl + `/product/store-product/`, store, {headers});
   }
 
   createStore(newStore: Store) {
     const headers = new HttpHeaders({Authorization: localStorage.getItem('auth_header')});
-    return this.http.post<Store>(environment.elbetaApiUrl + `/store/create`, newStore, {headers});
+    return this.http.post<Store>(environment.apiUrl + `/store/create`, newStore, {headers});
   }
 
   createProduct(newProduct: Product) {
     const headers = new HttpHeaders({Authorization: localStorage.getItem('auth_header')});
-    return this.http.post<Product>(environment.elbetaApiUrl + `/product/create`, newProduct, {headers});
+    return this.http.post<Product>(environment.apiUrl + `/product/create`, newProduct, {headers});
   }
 
   getStoreProduct(store: Store) {
     const headers = new HttpHeaders({Authorization: localStorage.getItem('auth_header')});
-    return this.http.get<Product[]>(environment.elbetaApiUrl + `/product/store-product/${store.id}`, {headers});
+    return this.http.get<Product[]>(environment.apiUrl + `/product/store-product/${store.id}`, {headers});
   }
 
   deleteProduct(product: Product) {
     const headers = new HttpHeaders({Authorization: localStorage.getItem('auth_header')});
-    return this.http.delete<void>(environment.elbetaApiUrl + `/product/delete/${product.id}`, {headers});
+    return this.http.delete<void>(environment.apiUrl + `/product/delete/${product.id}`, {headers});
   }
 }

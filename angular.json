@@ -22,7 +22,9 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "allowedCommonJsDependencies": ["chart.js"],
+            "allowedCommonJsDependencies": [
+              "chart.js"
+            ],
             "aot": true,
             "assets": [
               "src/favicon.ico",
@@ -119,6 +121,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "Front"
+    }
+  },
+  "defaultProject": "Front",
+  "cli": {
+    "analytics": false
+  }
 }
