@@ -22,6 +22,7 @@ export class PostComponent implements OnInit {
   object = Object;
   formAdd: FormGroup;
   content: FormControl;
+  newPost: PublicationModel;
 
   constructor(private  router: ActivatedRoute,
               private formService: FormService, private authService: AuthService) {
@@ -55,6 +56,7 @@ export class PostComponent implements OnInit {
     this.comm.publication = new PublicationModel();
     this.comm.publication.id = this.post.id;
     this.comm.user = this.authService.user;
+    this.newPost = new PublicationModel();
   }
 
   async like(comment: CommentModel, rate: RateCom) {
@@ -77,5 +79,11 @@ export class PostComponent implements OnInit {
       case 'LOVE': return love; break;
       case 'LIKE': return like; break;
     }
+  }
+  async deleteComment(id: number) {
+    await this.formService.deleteComment(id).toPromise();
+  }
+  async deletePost(id: number) {
+    await this.formService.deletePost(id).toPromise();
   }
 }
