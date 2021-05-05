@@ -8,13 +8,16 @@
       <div  class="col-lg-12">
         <div class="row row-grid">
           <div *ngFor="let categorie of categories" class="col-lg-4">
-            <div class="card card-lift--hover shadow border-0">
+            <div class="card card-lift--hover shadow border-0 categories-card">
               <div class="card-body py-5">
-                <div class="icon icon-shape icon-shape-primary rounded-circle mb-4"><i class="ni ni-check-bold"></i>
-                </div>
+                <ng-container [ngSwitch]="categorie.title">
+                  <div *ngSwitchCase="'Fashion'" class="icon icon-shape icon-shape-primary rounded-circle mb-4"><i class="ni ni-bold-down"></i></div>
+                  <div *ngSwitchCase="'Sport'" class="icon icon-shape icon-shape-success rounded-circle mb-4"><i class="ni ni-bold-down"></i></div>
+                  <div *ngSwitchDefault class="icon icon-shape icon-shape-light rounded-circle mb-4"><i class="ni ni-bold-down"></i></div>
+                </ng-container>
                 <h6 class="text-primary text-uppercase"> {{categorie.title}} </h6>
                 <p class="description mt-3"> {{categorie.description}} </p>
-                <a [routerLink]="['/posts',{id: categorie.id}]" class="btn btn-primary mt-4"> View More </a></div>
+                <a [routerLink]="['/posts',{id: categorie.id}]" class="btn btn-primary mt-4" > View More </a></div>
             </div>
           </div>
         </div>

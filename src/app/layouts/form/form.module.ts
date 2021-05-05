@@ -11,10 +11,11 @@ import {SharedModule} from '../../shared/shared.module';
 import { PostsListComponent } from './posts-list/posts-list.component';
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './home/home.component';
+import { ActivityComponent } from './activity/activity.component';
 
 
 @NgModule({
-  declarations: [FormComponent, LatestPostComponent, SuggestionsComponent, PostComponent, CategoriesComponent, PostsListComponent, HomeComponent],
+  declarations: [FormComponent, LatestPostComponent, SuggestionsComponent, PostComponent, CategoriesComponent, PostsListComponent, HomeComponent, ActivityComponent],
   imports: [
     CommonModule,
     FormRoutingModule,
