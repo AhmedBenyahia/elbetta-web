@@ -14,6 +14,7 @@ import {UtilityFunction} from '../../../helpers/UtilityFunction';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Subject} from 'rxjs';
 import {User} from '../../../models/user.mode';
+import {RatePub} from '../../../models/ratePub';
 
 @Component({
   selector: 'app-post',
@@ -62,8 +63,8 @@ export class PostComponent implements OnInit {
   async initVariable() {
     const id = this.router.snapshot.params.id;
     this.post = await this.formService.getPubById(id).toPromise();
-    console.log(Math.floor(this.post.score / Object.keys(this.post.ratingPub).length || 1));
-    this.rate = [...Array(Math.floor(this.post.score / Object.keys(this.post.ratingPub).length || 1)).keys()];
+    // console.log(Math.floor(this.post.score / Object.keys(this.post.ratingPub).length || 0));
+    this.rate = [...Array(Math.floor(this.post.score / Object.keys(this.post.ratingPub).length || 0)).keys()];
     this.rateVide = [...Array(5 - this.rate.length).keys()];
     this.commentPost = await this.formService.getCommentByPub(id).toPromise();
     this.comm.publication = new PublicationModel();
@@ -142,5 +143,11 @@ export class PostComponent implements OnInit {
   async editComment() {
     this.selectedComment = await this.formService.updateComment(this.selectedComment).toPromise();
     this.modalService.dismissAll();
+  }
+
+  async ratePost(i: number) {
+    this.post = await this.formService.ratePost(this.user.id, this.post.id, RatePub[i]).toPromise();
+    this.rate = [...Array(Math.floor(this.post.score / Object.keys(this.post.ratingPub).length || 0)).keys()];
+    this.rateVide = [...Array(5 - this.rate.length).keys()];
   }
 }

@@ -66,4 +66,10 @@ export class FormService {
     const headers = new HttpHeaders({Authorization: localStorage.getItem('auth_header')});
     return this.http.put<PublicationModel>(environment.apiUrl + '/api/publication/update/' , newPost, {headers});
   }
+
+  ratePost(idUser: number, idPost: number, ratePub: string) {
+    const headers = new HttpHeaders({Authorization: localStorage.getItem('auth_header')});
+    return this.http.get<PublicationModel>(
+      `${environment.apiUrl}/api/publication/rate/${idPost}/${idUser}/${ratePub}`, {headers});
+  }
 }

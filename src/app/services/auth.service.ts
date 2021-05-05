@@ -24,6 +24,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {
     this._user = new User();
+    this.refreshUserInfo();
   }
 
   login(username, password): Observable<any> {

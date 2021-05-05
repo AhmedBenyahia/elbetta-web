@@ -1,11 +1,12 @@
 export enum RatePub {
-  VERY_BAD,
+  // VERY_BAD,
   BAD,
-  VERY_POOR,
+  // VERY_POOR,
   POOR,
+  // AVERAGE,
   ABOVE_AVERAGE,
-  GOOD,
+  // GOOD,
   VERY_GOOD,
-  EXCELLENT,
+  // EXCELLENT,
   VERY_EXCELLENT,
 }

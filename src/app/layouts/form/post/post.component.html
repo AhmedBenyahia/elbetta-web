@@ -11,14 +11,14 @@
           </div>
         </div>
         <div class="card-body"><p class="mb-4">{{post?.content}}</p><img alt="Image placeholder"
-                                                                         src="assets/img/theme/team-1-800x800.jpg"
+                                                                         [src]="'http://localhost:8081/api/images/' + post.picture"
                                                                          class=" img-fluid rounded">
           <div class="row align-items-center my-3 pb-3 border-bottom">
             <div class="col-sm-6">
               <div class="icon-actions">
                 <td>
-                  <ng-container *ngFor="let i of rate"><i class="fas fa-star"></i></ng-container>
-                  <ng-container *ngFor="let i of rateVide"><i class="far fa-star"></i></ng-container>
+                  <ng-container *ngFor="let i of rate; let j = index"><i (click)="ratePost(j)" class="fas fa-star"></i></ng-container>
+                  <ng-container *ngFor="let i of rateVide; let j = index"><i (click)="ratePost(j + rate.length)" class="far fa-star"></i></ng-container>
                 </td>
 
                 <td class="col-auto"><a><i class="ni ni-chat-round"></i><span
