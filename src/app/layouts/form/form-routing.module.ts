@@ -5,6 +5,7 @@ import {SuggestionsComponent} from './suggestions/suggestions.component';
 import {HomeComponent} from './home/home.component';
 import {PostsListComponent} from './posts-list/posts-list.component';
 import {ActivityComponent} from './activity/activity.component';
+import {MessagingComponent} from './messeging/messaging.component';
 
 const routes: Routes = [
   { path: 'form',          component: HomeComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'suggestion',          component: SuggestionsComponent },
   { path: 'posts',          component: PostsListComponent },
   { path: 'activity',          component: ActivityComponent },
+  { path: 'messaging',          component: MessagingComponent },
 ];
 
 @NgModule({
