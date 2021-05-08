@@ -6,13 +6,14 @@
           <div *ngFor="let post of publication$ | async" class="card card-blog card-plain blog-horizontal mb-5">
             <div class="row">
               <div class="col-lg-4">
-                <div class="card-image shadow"><a ><img src="assets/img/theme/team-1-800x800.jpg"
-                                                                           class="img rounded"></a></div>
+                <div class="card-image shadow"><a ><img alt="Image placeholder"
+                                                        [src]="'http://localhost:8081/api/images/' + post.picture"
+                                                        class="img rounded"></a></div>
               </div>
               <div class="col-lg-8">
-                <div routerLink="/post-content" class="card-body"><h3 class="card-title"><a > {{post.title}} </a></h3>
+                <div [routerLink]="['/post-content',{id: post.id}]" class="card-body"><h3 class="card-title"><a > {{post.title}} </a></h3>
                   <p class="card-description">{{post.content}} <a > Read More </a></p>
-                  <div class="author"><img alt="..." src="assets/img/theme/team-1-800x800.jpg"
+                  <div class="author"><img alt="..." src="assets/img/theme/team-4-800x800.jpg"
                                            class="avatar img-raised">
                     <div class="text"><span class="name"> {{post.user.login}} </span>
                       <div class="meta">{{post.datePublication | date :'short'}}</div>

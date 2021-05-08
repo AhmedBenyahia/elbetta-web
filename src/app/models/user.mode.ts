@@ -32,4 +32,5 @@ export class User {
   infoBanks: any;
 
   stores: Set<Store>;
+  login: any;
 }

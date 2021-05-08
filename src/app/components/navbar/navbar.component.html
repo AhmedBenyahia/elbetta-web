@@ -34,13 +34,17 @@
             <i class="ni ni-single-02"></i>
             <span>Home</span>
           </a>
-          <a routerLinkActive="active" [routerLink]="['/user-profile']" class="dropdown-item">
+          <a routerLinkActive="active" [routerLink]="['/add-post']" class="dropdown-item">
             <i class="ni ni-settings-gear-65"></i>
             <span>Add Post</span>
           </a>
           <a routerLinkActive="active" [routerLink]="['/activity']" class="dropdown-item">
             <i class="ni ni-calendar-grid-58"></i>
             <span>Activity</span>
+          </a>
+          <a routerLinkActive="active" [routerLink]="['/suggestion']" class="dropdown-item">
+            <i class="ni ni-air-baloon"></i>
+            <span>Suggestions</span>
           </a>
           <div class="dropdown-divider"></div>
           <a (click)="logout()" class="dropdown-item">

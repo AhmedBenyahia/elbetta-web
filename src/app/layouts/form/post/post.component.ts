@@ -35,6 +35,8 @@ export class PostComponent implements OnInit {
   selectedComment: CommentModel;
   editCommentForm: FormGroup;
   user = new User();
+  selectedPost: any;
+  editPostForm: FormGroup;
 
 
   constructor(private  router: ActivatedRoute,
@@ -42,7 +44,7 @@ export class PostComponent implements OnInit {
               private formService: FormService, private authService: AuthService) {
   }
 
-   ngOnInit() {
+  ngOnInit() {
     this.initVariable();
     this.createform();
   }
@@ -88,16 +90,24 @@ export class PostComponent implements OnInit {
     const love = 'fab fa-gratipay';
     comment.dislike = false;
     const userReaction = Object.keys(comment.ratingCom).filter(c => c === this.authService.user.id.toString());
-    if (!userReaction.length) { return defaultE; }
+    if (!userReaction.length) {
+      return defaultE;
+    }
     comment.dislike = true;
-    switch (comment.ratingCom[userReaction[0]]){
-      case 'LOVE': return love; break;
-      case 'LIKE': return like; break;
+    switch (comment.ratingCom[userReaction[0]]) {
+      case 'LOVE':
+        return love;
+        break;
+      case 'LIKE':
+        return like;
+        break;
     }
   }
+
   async deleteComment(id: number) {
     await this.formService.deleteComment(id).toPromise();
   }
+
   async deletePost(id: number) {
     await this.formService.deletePost(id).toPromise();
   }
@@ -149,5 +159,29 @@ export class PostComponent implements OnInit {
     this.post = await this.formService.ratePost(this.user.id, this.post.id, RatePub[i]).toPromise();
     this.rate = [...Array(Math.floor(this.post.score / Object.keys(this.post.ratingPub).length || 0)).keys()];
     this.rateVide = [...Array(5 - this.rate.length).keys()];
+  }
+
+  openModalPost(content, type, modalDimension, task, param?: PublicationModel | any) {
+    switch (task) {
+      case 'edit-post':
+        this.editPostForm = new FormGroup({
+          updateComment: new FormControl()
+        });
+        this.post = param;
+        break;
+      case 'delete-post':
+        this.closeResult$.pipe(first()).subscribe(async (result: string) => {
+          if (result.includes('Delete')) {
+            await this.formService.deletePost(param.id).toPromise();
+          //  this.post = this.post.filter(c => c.id !== param.id);
+          }
+        });
+        break;
+    }
+  }
+
+  async editPost() {
+    this.post = await this.formService.updatePost(this.post).toPromise();
+    this.modalService.dismissAll();
   }
 }
