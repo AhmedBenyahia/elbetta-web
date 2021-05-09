@@ -66,10 +66,10 @@ export class PostComponent implements OnInit {
     this.rate = [...Array(Math.floor(this.post.score / Object.keys(this.post.ratingPub).length || 0)).keys()];
     this.rateVide = [...Array(5 - this.rate.length).keys()];
     this.commentPost = await this.formService.getCommentByPub(id).toPromise();
-    this.comm.publication = new PublicationModel();
+    this.comm.publication = new PublicationModel(this.authService.user);
     this.comm.publication.id = this.post.id;
     this.comm.user = this.authService.user;
-    this.newPost = new PublicationModel();
+    this.newPost = new PublicationModel(this.authService.user);
     this.user = await this.authService.refreshUserInfo();
   }
 

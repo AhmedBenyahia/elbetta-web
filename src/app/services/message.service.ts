@@ -26,7 +26,7 @@ export class MessageService {
     const that = this;
     // tslint:disable-next-line:only-arrow-functions
     this.stompClient.connect({}, function(frame) {
-      that.stompClient.subscribe('/user/topic/greetings', (message) => {
+      that.stompClient.subscribe('/message', (message) => {
         console.log('Got a msg');
         if (message.body) {
           that.msg.push(message.body);
@@ -42,7 +42,7 @@ export class MessageService {
       avatar: 'test'
     };
     // this.stompClient.send('/app/hello', {}, JSON.stringify(msgModel));
-    this.stompClient.send('/app/hello', {}, 'Hi');
+    this.stompClient.send('/send/message', {}, JSON.stringify(msgModel));
     // this.stompClient.send('/app/hello', {}, {name: 'Any Name'});
   }
 }

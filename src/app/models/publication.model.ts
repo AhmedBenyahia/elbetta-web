@@ -16,8 +16,9 @@ export class PublicationModel {
   comments: Set<Comment>;
   categoriePublications: CategoriePublication;
 
-  constructor() {
+    constructor(user: User) {
     this.categoriePublications = new CategoriePublication();
+    this.user = user;
   }
 
 }

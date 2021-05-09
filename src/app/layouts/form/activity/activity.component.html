@@ -4,80 +4,25 @@
   <section class="blogs-1" >
     <div class="container">
       <div class="row mb-5">
-        <div class="col-md-8"><h3 class="display-3">Activity</h3>
+        <div class="col-md-8"><h3 class="display-3">User Activity</h3>
         </div>
       </div>
       <div class="row align-items-center" >
 <!--        *ngFor="let p of publications$"-->
 <!--        *ngFor="; let i = index" [ngClass]="i%3 == 0 ? 'col-lg-6': 'col-lg-3'"-->
-        <div class="col-lg-3">
-          <div data-animation="zooming" class="card card-blog card-background">
-            <div class="full-background" style="background-image: url('assets/img/theme/kkk.jpg');"></div>
+        <div *ngFor="let p of publications$ | async ; let i = index" [ngClass]="(i+1)%3 === 0 ? 'col-lg-6': 'col-lg-3'">
+          <div data-animation="zooming" class="card card-blog card-background" [routerLink]="['/post-content',{id: p.id}]" >
+            <div class="full-background" [ngStyle]="{'background-image': 'url(http://localhost:8081/api/images/' + p.picture + ')' }"></div>
             <a>
               <div class="card-body">
-                <div class="content-bottom"><h6 class="card-category text-white opacity-8"  routerLink='/post-content'> New Challenges </h6><h5
-                  class="card-title">Touch on a trend</h5></div>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div data-animation="zooming" class="card card-blog card-background">
-            <div class="full-background" style="background-image: url('assets/img/theme/kk.jpg');"></div>
-            <a>
-              <div class="card-body">
-                <div class="content-bottom"><h6 class="card-category text-white opacity-8"> New Opportunities </h6><h5
-                  class="card-title">Constantly growing</h5></div>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div data-animation="zooming" class="card card-blog card-background">
-            <div class="full-background" style="background-image: url('assets/img/theme/kkk.jpg');"></div>
-            <a>
-              <div class="card-body">
-                <div class="content-bottom"><h6 class="card-category text-white opacity-8"> Sales Leads </h6><h5
-                  class="card-title"> Configure Blockchain Technology </h5></div>
+                <div class="content-bottom"><h6 class="card-category text-white opacity-8"> {{p.categoriePublications.title}} </h6><h5
+                  class="card-title">{{p.title}}</h5></div>
               </div>
             </a>
           </div>
         </div>
       </div>
-      <div class="row align-items-center">
-        <div class="col-lg-6">
-          <div data-animation="zooming" class="card card-blog card-background">
-            <div class="full-background" style="background-image: url('assets/img/theme/kkk.jpg');"></div>
-            <a>
-              <div class="card-body">
-                <div class="content-bottom"><h6 class="card-category text-white opacity-8"> AI at the Edge </h6><h5
-                  class="card-title">Research Byte</h5></div>
-              </div>
-            </a></div>
-        </div>
-        <div class="col-lg-3">
-          <div data-animation="zooming" class="card card-blog card-background">
-            <div class="full-background" style="background-image: url('assets/img/theme/kkk.jpg');"></div>
-            <a>
-              <div class="card-body">
-                <div class="content-bottom"><h6 class="card-category text-white opacity-8"> Spectrum </h6><h5
-                  class="card-title">Data Virtualization</h5></div>
-              </div>
-            </a></div>
-        </div>
-        <div class="col-lg-3">
-          <div data-animation="zooming" class="card card-blog card-background">
-            <div class="full-background" style="background-image: url('assets/img/theme/kkk.jpg');"></div>
-            <a>
-              <div class="card-body">
-                <div class="content-bottom"><h6 class="card-category text-white opacity-8"> Touch on a trend </h6><h5
-                  class="card-title">New Challenges</h5></div>
-              </div>
-            </a></div>
-        </div>
-      </div>
-      <button type="button" class="btn btn-icon btn-primary mt-4"><span class="btn-inner--text"> Show more </span><span
-        class="btn-inner--icon"><i class="ni ni-bold-right"></i></span></button>
+
     </div>
   </section>
 </div>

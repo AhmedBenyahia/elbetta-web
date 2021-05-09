@@ -38,10 +38,10 @@ export class AuthService {
 
   async refreshUserInfo() {
     const headers = new HttpHeaders({Authorization: localStorage.getItem('auth_header')});
-    if (headers) {
+    if (localStorage.getItem('auth_header')) {
       this._user = await this.http.get<User>(environment.apiUrl + `/api/auth/login`, {headers}).toPromise();
     } else {
-      throw throwError('Invalid login Information, Please login !!');
+      // throw throwError('Invalid login Information, Please login !!');
     }
     return this.user;
   }

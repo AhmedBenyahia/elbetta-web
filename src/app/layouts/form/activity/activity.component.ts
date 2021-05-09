@@ -28,4 +28,7 @@ publications$: Observable<PublicationModel[]>;
     this.publications$ = this.formService.getPubByUser(this.user.id);
     }
 
+  openPost() {
+    this.router.navigate(['/post-content']);
+  }
 }

@@ -23,7 +23,7 @@ export class AddPostComponent implements OnInit {
   selectedFile: File;
   // User Details
   user: User;
-  pubToCreate = new PublicationModel();
+  pubToCreate = new PublicationModel(this.authService.user);
 
   // Date att
   date: NgbDate;
@@ -91,10 +91,6 @@ export class AddPostComponent implements OnInit {
     }, () => console.log('Create Post Failed'));
   }
 
-  async uploadPicture(id: number) {
-    // id = this.pubToCreate.id;
-    //  this.pubToCreate.picture.toString() = await this.formService.uploadPicture(id).toPromise();
-  }
 
   async onSelectFile(event) {
     if (event.target.files.length > 0) {
