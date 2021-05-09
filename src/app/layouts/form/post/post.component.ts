@@ -1,14 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormService} from '../../../services/form.service';
 import {PublicationModel} from '../../../models/publication.model';
-import {ArrayType} from '@angular/compiler';
 import {FormControl, FormGroup} from '@angular/forms';
 import {CommentModel} from '../../../models/comment';
 import {AuthService} from '../../../services/auth.service';
-import {RateCom} from '../../../models/rateCom';
-import {Store} from '../../../models/store.model';
-import {Product} from '../../../models/product.model';
 import {first} from 'rxjs/operators';
 import {UtilityFunction} from '../../../helpers/UtilityFunction';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -41,6 +37,7 @@ export class PostComponent implements OnInit {
 
   constructor(private  router: ActivatedRoute,
               private modalService: NgbModal,
+              private route: Router,
               private formService: FormService, private authService: AuthService) {
   }
 
@@ -165,7 +162,8 @@ export class PostComponent implements OnInit {
     switch (task) {
       case 'edit-post':
         this.editPostForm = new FormGroup({
-          updateComment: new FormControl()
+          updatePostTitle: new FormControl(),
+          updatePostContent: new FormControl()
         });
         this.post = param;
         break;
@@ -173,10 +171,31 @@ export class PostComponent implements OnInit {
         this.closeResult$.pipe(first()).subscribe(async (result: string) => {
           if (result.includes('Delete')) {
             await this.formService.deletePost(param.id).toPromise();
-          //  this.post = this.post.filter(c => c.id !== param.id);
+            this.route.navigate(['/form']);
+            //  this.post = this.post.filter(c => c.id !== param.id);
           }
         });
         break;
+    }
+
+    if (modalDimension === 'sm' && type === 'modal_mini') {
+      this.modalService.open(content, {windowClass: 'modal-mini', size: 'sm', centered: true}).result.then((result) => {
+        this.closeResult$.next(`Closed with: ${result}`);
+      }, (reason) => {
+        this.closeResult$.next(`Dismissed ${UtilityFunction.getDismissReason(reason)}`);
+      });
+    } else if (modalDimension === '' && type === 'Notification') {
+      this.modalService.open(content, {windowClass: 'modal-danger', centered: true}).result.then((result) => {
+        this.closeResult$.next(`Closed with: ${result}`);
+      }, (reason) => {
+        this.closeResult$.next(`Dismissed ${UtilityFunction.getDismissReason(reason)}`);
+      });
+    } else {
+      this.modalService.open(content, {centered: true}).result.then((result) => {
+        this.closeResult$.next(`Closed with: ${result}`);
+      }, (reason) => {
+        this.closeResult$.next(`Dismissed ${UtilityFunction.getDismissReason(reason)}`);
+      });
     }
   }
 

@@ -79,6 +79,8 @@ export class AddPostComponent implements OnInit {
   }
   async addPost(){
    this.pubToCreate = await this.formService.addPost(this.pubToCreate).toPromise();
+   this.router.navigate(['/form' + this.pubToCreate.id]);
+
   }
   async uploadPicture(id: number) {
     // id = this.pubToCreate.id;
@@ -107,6 +109,6 @@ export class AddPostComponent implements OnInit {
   }
 
   onSelectCateg(value: any) {
-    console.log(value);
+    this.pubToCreate.categoriePublications.id = value;
   }
 }

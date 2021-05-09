@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
 
-
-// Declare SockJS and Stomp
-declare var SockJS;
-declare var Stomp;
+// // Declare SockJS and Stomp
+// declare var SockJS;
+// declare var Stomp;
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class MessageService {
     const that = this;
     // tslint:disable-next-line:only-arrow-functions
     this.stompClient.connect({}, function(frame) {
-      that.stompClient.subscribe('/message.1', (message) => {
+      that.stompClient.subscribe('/user/topic/greetings', (message) => {
         console.log('Got a msg');
         if (message.body) {
           that.msg.push(message.body);
@@ -40,6 +41,8 @@ export class MessageService {
       username: 'test',
       avatar: 'test'
     };
-    this.stompClient.send('/app/send/message.1', {}, JSON.stringify(msgModel));
+    // this.stompClient.send('/app/hello', {}, JSON.stringify(msgModel));
+    this.stompClient.send('/app/hello', {}, 'Hi');
+    // this.stompClient.send('/app/hello', {}, {name: 'Any Name'});
   }
 }

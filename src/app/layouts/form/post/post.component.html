@@ -1,13 +1,13 @@
 <body background="assets/img/theme/kk.jpg">
-<div class="container">
+<div class="container m-3">
   <div class="row">
     <div class="col-md-8 mx-auto">
       <div class="card">
         <div class="row">
-          <div class="col-sm-8"><div class="header"><h5 class="h3 mb-0">{{post?.title}}</h5></div> </div>
+          <div class="col-sm-8"><div class="header"><h5 class="h3 mb-0 m-3">{{post?.title}}</h5></div> </div>
           <div class="col-sm-4">
             <a>
-            <div  class="text-right">
+            <div  class="text-right m-3">
               <div ngbDropdown placement="bottom-right" container="body">
                 <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
                   <i class="fas fa-ellipsis-v"></i>
@@ -215,8 +215,13 @@
             <div class="form-group mb-3">
               <div class="input-group input-group-alternative">
                 <div class="btn-wrapper text-center">
-                  <input [(ngModel)]="post.content" formControlName="updatePost" type="text"
-                         id="input-titlePost"
+                  <input [(ngModel)]="post.title" formControlName="updatePostTitle" type="text"
+                         class="form-control form-control-alternative" placeholder="Store Title">
+                </div>
+              </div>
+              <div class="input-group input-group-alternative">
+                <div class="btn-wrapper text-center">
+                  <input [(ngModel)]="post.content" formControlName="updatePostContent" type="text"
                          class="form-control form-control-alternative" placeholder="Store Title">
                 </div>
               </div>

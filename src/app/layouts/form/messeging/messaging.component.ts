@@ -8,7 +8,7 @@ import {MessageService} from '../../../services/message.service';
 })
 export class MessagingComponent implements OnInit {
   input;
-  constructor(private messageService: MessageService) {}
+  constructor(public messageService: MessageService) {}
   sendMessage() {
     if (this.input) {
       this.messageService.sendMessage(this.input);
