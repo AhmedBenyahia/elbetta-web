@@ -55,5 +55,4 @@ export class AuthService {
     const headers = new HttpHeaders({Authorization: localStorage.getItem('auth_header')});
     return this.http.post(environment.apiUrl + `/api/user/create`, user, {headers});
   }
-
 }
