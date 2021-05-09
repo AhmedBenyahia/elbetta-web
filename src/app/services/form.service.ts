@@ -85,22 +85,21 @@ export class FormService {
     return this.http.get<PublicationModel>(
       `${environment.apiUrl}/api/publication/rate/${idPost}/${idUser}/${ratePub}`, {headers});
   }
+
   getPubByUser(idUser: number) {
     const headers = new HttpHeaders({Authorization: localStorage.getItem('auth_header')});
-    return this.http.get<PublicationModel[]>(environment.apiUrl + 'publication/find-user-publication/' + idUser, {headers});
+    return this.http.get<PublicationModel[]>(environment.apiUrl + '/api/publication/find-user-publication/' + idUser, {headers});
   }
-  uploadFile(file: File, idPost: number): Observable<HttpEvent<{}>> {
-    const formdata: FormData = new FormData();
-    formdata.append('file', file);
-    const req = new HttpRequest('POST', 'publication/uploadFiles/' + idPost, formdata, {
-      reportProgress: true,
-      responseType: 'text'
-    });
 
-    return this.http.request(req);
+  uploadFile(file: File, idPost: number) {
+    const headers = new HttpHeaders({Authorization: localStorage.getItem('auth_header')});
+    const formData: FormData = new FormData();
+    formData.append('uploadedFiles', file);
+    return this.http.post(environment.apiUrl + '/api/publication/uploadFiles/' + idPost, formData, {headers});
   }
+
   uploadPicture(idPost: number) {
     const headers = new HttpHeaders({Authorization: localStorage.getItem('auth_header')});
-    return this.http.post<PublicationModel>(environment.apiUrl + 'publication/uploadFiles/' + idPost, {headers});
+    return this.http.post<PublicationModel>(environment.apiUrl + '/api/publication/uploadFiles/' + idPost, {headers});
   }
 }

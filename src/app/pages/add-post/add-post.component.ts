@@ -7,8 +7,8 @@ import {UtilityFunction} from '../../helpers/UtilityFunction';
 import {User} from '../../models/user.mode';
 import {PublicationModel} from '../../models/publication.model';
 import {FormService} from '../../services/form.service';
-import {CategoriePublication} from '../../models/categoriePublication.model';
 import {CategoriesService} from '../../services/categories.service';
+
 @Component({
   selector: 'app-user-profile',
   templateUrl: './add-post.component.html',
@@ -23,17 +23,18 @@ export class AddPostComponent implements OnInit {
   selectedFile: File;
   // User Details
   user: User;
-  pubToCreate = new  PublicationModel();
+  pubToCreate = new PublicationModel();
 
   // Date att
   date: NgbDate;
   focusDate: boolean;
-  userFile ;
+  userFile: File = null;
   public imagePath;
   imgURL: any;
   public message: string;
+  private uploadFile$: Promise<any>;
 
-  constructor(private authService: AuthService, private router: Router, private formService: FormService ,
+  constructor(private authService: AuthService, private router: Router, private formService: FormService,
               private categorieService: CategoriesService) {
   }
 
@@ -77,15 +78,24 @@ export class AddPostComponent implements OnInit {
   mama($event: Event) {
     //
   }
-  async addPost(){
-   this.pubToCreate = await this.formService.addPost(this.pubToCreate).toPromise();
-   this.router.navigate(['/form' + this.pubToCreate.id]);
 
+  addPost() {
+    this.formService.addPost(this.pubToCreate).subscribe(value => {
+      this.pubToCreate = value;
+      this.formService.uploadFile(this.userFile, this.pubToCreate.id).subscribe(
+        () => {
+          console.log('Upload OK');
+          this.router.navigate(['/form' + this.pubToCreate.id]);
+        },
+        (err) => console.log('Upload Failed', err ));
+    }, () => console.log('Create Post Failed'));
   }
+
   async uploadPicture(id: number) {
     // id = this.pubToCreate.id;
     //  this.pubToCreate.picture.toString() = await this.formService.uploadPicture(id).toPromise();
   }
+
   async onSelectFile(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
@@ -106,6 +116,8 @@ export class AddPostComponent implements OnInit {
         this.imgURL = reader.result;
       };
     }
+
+
   }
 
   onSelectCateg(value: any) {
