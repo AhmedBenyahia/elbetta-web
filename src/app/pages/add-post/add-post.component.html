@@ -1,0 +1,99 @@
+<div class="header pb-5 pt-5 pt-lg-5 d-flex align-items-center" style="min-height: 300px; background-image: url(assets/img/theme/back3.jpg); background-size: cover; background-position: center top;">
+  <!-- Mask -->
+  <!-- Header container -->
+  <div class="container-fluid d-flex align-items-center">
+    </div>
+  </div>
+<div class="container-fluid mt--7" >
+  <div class="row" >
+    <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0"  >
+      <div class="card card-profile shadow" >
+        <div class="row justify-content-center" >
+          <div class="col-lg-3 order-lg-2">
+            <div class="card-profile-image">
+              <a href="javascript:void(0)">
+                <img src="assets/img/theme/team-4-800x800.jpg" class="rounded-circle">
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+          <div class="d-flex justify-content-between">
+            <a href="javascript:void(0)" class="btn btn-sm btn-info mr-4" routerLink='/form'  >Home</a>
+            <a href="javascript:void(0)" class="btn btn-sm btn-default float-right" routerLink="/activity">Activity</a>
+          </div>
+        </div>
+        <div class="card-body pt-0 pt-md-4" >
+          <div class="row">
+            <div class="col">
+              <div class="text-center">
+                <span class="font-weight-light">{{user?.login}}</span>
+              </div>
+              <div class="card-profile-stats d-flex justify-content-center mt-md-2">
+                <div>
+                  <span class="heading">89</span>
+                  <span class="description">Comments</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-8 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Add Post</h3>
+            </div>
+          </div>
+        </div>
+        <form [formGroup]="pubForm" (ngSubmit)="addPost()">
+          <h6 class="heading-small text-muted mb-4">Post information</h6>
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-title">Title</label>
+                  <input [(ngModel)]="pubToCreate.title" formControlName="title" type="text" id="input-title"
+                         class="form-control form-control-alternative" placeholder="Title">
+                </div>
+              </div>
+            </div>
+           <div class="form-group">
+              <label  class="form-control-label" for="input-title">Catégorie </label>
+              <select class="form-control" formControlName="id_categ">
+                <option value="0">-Select-</option>
+                <option  (click)="onSelectCateg(item.id)"  *ngFor="let item of Categories$" value="{{item?.id}}">{{item?.title}}</option>
+              </select>
+           </div>
+            <hr class="my-4" />
+            <!-- Description -->
+            <h6 class="heading-small text-muted mb-4">Description of Post</h6>
+            <div class="pl-lg-4">
+              <div class="form-group">
+                <label  class="form-control-label" for="input-title" >Content</label>
+                <textarea [(ngModel)]="pubToCreate.content" formControlName="content" class="form-control" type="text" rows="4"   placeholder="A few words about post ..."></textarea>
+              </div>
+            </div>
+            </div>
+          <hr class="my-4" />
+          <div class="form-group">
+            <h6 class="heading-small text-muted mb-4" class="form-control-label" for="input-title">
+              <label>Picture</label>
+            </h6>
+            <input type="file" accept="image/*" (change)="onSelectFile($event)">
+            <img [src]="imgURL" height="100" *ngIf="imgURL">
+          </div>
+          <div class="form-group">
+              <div class="col text-xl-right">
+              <a class="btn btn-outline-success" (click)="addPost()"><i class="fa fa-plus-square"></i> Add</a>
+              </div>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+

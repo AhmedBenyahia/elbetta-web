@@ -1,18 +1,19 @@
-<section class="section">
-  <section class="blogs-3">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-10 col-md-8 mx-auto"><h2 class="title mb-5">Latest Publications</h2>
-          <div *ngFor="let pub of latestPub$ | async" class="card card-blog card-plain blog-horizontal mb-5">
-            <div class="row">
-              <div class="col-lg-4">
-                <div class="card-image shadow"><a ><img src="assets/img/theme/team-1-800x800.jpg"
+<section class="section" >
+  <section class="blogs-3" >
+    <div class="container" >
+      <div class="row" >
+        <div class="col-lg-10 col-md-8 mx-auto"><h2 class="title mb-5" >Latest Publications</h2>
+          <div *ngFor="let pub of latestPub$ | async" class="card card-blog card-plain blog-horizontal mb-5" >
+            <div class="row" >
+              <div class="col-lg-4" >
+                <div class="card-image shadow"><a ><img alt="Image placeholder"
+                                                        [src]="'http://localhost:8081/api/images/' + pub.picture"
                                                         class="img rounded"></a></div>
               </div>
-              <div class="col-lg-8">
+              <div class="col-lg-8" style="background-image: url('assets/img/theme/coo.jpg')">
                 <div class="card-body"><h3 [routerLink]="['/post-content',{id: pub.id}]" class="card-title"><a >{{pub.title}} </a></h3>
                   <p class="card-description">{{pub.content}}</p>
-                  <div class="author"><img alt="..." src="assets/img/theme/team-1-800x800.jpg"
+                  <div class="author"><img alt="..." src="assets/img/theme/team-4-800x800.jpg"
                                            class="avatar img-raised">
                     <div class="text"><span class="name"> {{pub?.user?.login}}</span>
                       <div class="meta">{{pub.datePublication | date :'short'}}</div>
@@ -27,3 +28,4 @@
     </div>
   </section>
 </section>
+

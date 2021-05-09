@@ -1,3 +1,4 @@
+<div class="container" >
 <section class="blogs-5">
   <div class="container">
     <div class="row">
@@ -5,13 +6,14 @@
         <div class="row">
           <div *ngFor="let post of suggestions" class="col-lg-4 col-md-6">
             <div class="card card-blog card-plain">
-              <div class="card-image shadow"><a href="javascript:;"><img src="assets/img/theme/team-1-800x800.jpg"
+              <div class="card-image shadow"><a href="javascript:;"><img alt="Image placeholder"
+                                                                         [src]="'http://localhost:8081/api/images/' + post.picture"
                                                                          class="img rounded"></a></div>
               <div class="card-body">
-                <h4 [routerLink]="['/post-content',{post: post}]" class="card-title"><a (click)="goToPost(post)">{{post.title}}</a></h4>
+                <h4 [routerLink]="['/post-content']" class="card-title"><a (click)="goToPost(post)">{{post.title}}</a></h4>
                 <p class="card-description"> {{post.content}} </p>
                 <div class="card-footer">
-                  <div class="author"><img alt="..." src="assets/img/theme/team-1-800x800.jpg" class="avatar img-raised"><span> {{post.user.login}}</span>
+                  <div class="author"><img alt="..." src="assets/img/theme/team-4-800x800.jpg" class="avatar img-raised"><span> {{post?.user?.login}}</span>
                   </div>
                   <div class="stats stats-right opacity-8"><i class="ni ni-watch-time"></i>{{getReadTime(post.content)}}m Read Time </div>
                 </div>
@@ -24,3 +26,5 @@
     </div>
   </div>
 </section>
+</div>
+
