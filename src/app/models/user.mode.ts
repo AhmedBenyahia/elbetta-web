@@ -1,4 +1,3 @@
-import {Store} from './store.model';
 
 
 export class User {
@@ -31,6 +30,5 @@ export class User {
 
   infoBanks: any;
 
-  stores: Set<Store>;
   login: any;
 }
